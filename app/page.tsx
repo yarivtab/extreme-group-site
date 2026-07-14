@@ -13,6 +13,13 @@ const insights = [
   ["מגמות", "הצוות הטכנולוגי החדש: ליבה פנימית ומומחיות מבחוץ"],
 ];
 
+const missions = [
+  { code: "AI / OPS", title: "סוכן AI לשירות ותפעול", body: "מסכם פניות, מסווג משימות, מציע תשובה ומעדכן את המערכות שכבר עובדות בארגון.", result: "פחות עבודה ידנית · יותר רציפות", track: "project" },
+  { code: "DATA / TEAM", title: "צוות Data למשימה קריטית", body: "מומחי Data Engineering, Analytics ו־ML שמתחברים לצוות קיים סביב יעד ברור.", result: "היכולת הנכונה · בלי להעמיס מבנה", track: "talent" },
+  { code: "AUTO / FLOW", title: "אוטומציה חוצת מערכות", body: "תהליך אחד שמחבר CRM, ERP, מסמכים ואישורים — עם בקרה אנושית בנקודות הנכונות.", result: "פחות העתקות · פחות טעויות", track: "project" },
+  { code: "TECH / ROLE", title: "גיוס לתפקיד שקשה לאייש", body: "מגדירים מחדש את פרופיל ההצלחה ומגיעים למועמדים שמתאימים גם לטכנולוגיה וגם לצוות.", result: "חיפוש ממוקד · החלטה בטוחה", track: "talent" },
+];
+
 export default function Home() {
   return (
     <main>
@@ -23,6 +30,7 @@ export default function Home() {
           <p className="eyebrow"><span /> טכנולוגיה שעובדת בשביל העסק</p>
           <h1 id="hero-title">אנשים וטכנולוגיה<br />שמזיזים ארגונים<br /><em>קדימה.</em></h1>
           <p className="hero-lede">Extreme Group הופכת גיוס טכנולוגי ופרויקטי AI, אוטומציה ו־IT לאוטומטיים יותר, מדויקים יותר, מהירים יותר — ובעיקר נוחים יותר.</p>
+          <div className="hero-stats" aria-label="נתוני פעילות"><div><strong>2</strong><span>מסלולי ליבה</span></div><div><strong>1</strong><span>כתובת אחת</span></div><div><strong>≤ 1</strong><span>יום עסקים למענה</span></div></div>
           <div className="actions">
             <Link className="button primary" href="/intake">קבלו פרטים <span>←</span></Link>
             <Link className="button secondary" href="/intake?track=career">שלחו קורות חיים</Link>
@@ -70,6 +78,22 @@ export default function Home() {
             </div>
             <Link href="/solutions#technology" className="card-link">לפתרונות הטכנולוגיים <span>←</span></Link>
           </article>
+        </div>
+      </section>
+
+      <section className="missions-section">
+        <div className="shell">
+          <div className="section-heading horizontal">
+            <div><p className="kicker light">משימות, לא באזז</p><h2>מה צריך לקרות<br />אצלכם עכשיו?</h2></div>
+            <p>מתחילים מתוצאה עסקית קונקרטית. האנשים, המערכת או השילוב ביניהם מגיעים אחר כך.</p>
+          </div>
+          <div className="mission-grid">
+            {missions.map((mission, index) => <Link key={mission.code} href={`/intake?track=${mission.track}`} className="mission-card">
+              <div className="mission-top"><span>0{index + 1}</span><small>{mission.code}</small></div>
+              <h3>{mission.title}</h3><p>{mission.body}</p>
+              <div className="mission-result"><span>{mission.result}</span><b>↙</b></div>
+            </Link>)}
+          </div>
         </div>
       </section>
 
