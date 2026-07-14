@@ -1,85 +1,44 @@
 import Link from "next/link";
 import { Footer, Header } from "./components";
-
-const examples = [
-  { code: "AI / OPS", title: "סוכן AI לשירות ותפעול", detail: "פחות טיפול ידני, יותר רציפות", track: "project" },
-  { code: "DATA / TEAM", title: "צוות Data למשימה קריטית", detail: "היכולת הנכונה, בזמן הנכון", track: "talent" },
-  { code: "AUTO / FLOW", title: "אוטומציה חוצת מערכות", detail: "פחות העתקות, פחות טעויות", track: "project" },
-];
+import { jobs } from "./jobs/data";
 
 export default function Home() {
   return (
-    <main className="compact-home">
+    <main className="talent-home">
       <Header />
 
-      <div className="signal-strip shell" aria-label="עיקרי השירות">
-        <span><strong>2</strong> מסלולי ליבה</span>
-        <span><strong>1</strong> שותף אחד</span>
-        <span><strong>≤ 1</strong> יום עסקים למענה</span>
-      </div>
+      <section className="talent-hero shell" aria-labelledby="hero-title">
+        <p className="eyebrow"><span /> EXTREME EXPERTS</p>
+        <h1 id="hero-title">העבודה הבאה שלך יכולה להתחיל כאן.</h1>
+        <p>הזדמנויות טכנולוגיות עם אתגר אמיתי, צוותים מצוינים ומקום להשפיע.</p>
+      </section>
 
-      <section className="compact-hero shell" aria-labelledby="hero-title">
-        <p className="eyebrow"><span /> אנשים · AI · אוטומציה</p>
-        <h1 id="hero-title">האנשים והטכנולוגיה<br />שמקדמים את <em>העסק.</em></h1>
-        <p>Extreme Group מחברת ארגונים לטאלנט טכנולוגי ולפתרונות AI ואוטומציה — משלב הצורך ועד לתוצאה עובדת.</p>
-        <div className="actions">
-          <Link className="button primary" href="/intake">ספרו לנו מה צריך <span>←</span></Link>
-          <Link className="button secondary" href="/solutions">לכל הפתרונות</Link>
+      <section className="jobs-section shell" id="experts" aria-labelledby="jobs-title">
+        <div className="jobs-title-row">
+          <div><p className="kicker">LATEST ROLES</p><h2 id="jobs-title">משרות פתוחות</h2></div>
+          <span>{jobs.length} תפקידים נבחרים</span>
+        </div>
+        <div className="job-card-grid">
+          {jobs.map((job) => (
+            <Link className="role-card" href={`/jobs/${job.slug}`} key={job.slug}>
+              <div className="role-card-top"><span>{job.field}</span><small>{job.type}</small></div>
+              <h3>{job.title}</h3>
+              <p>{job.location} · {job.workMode}</p>
+              <div className="role-card-bottom"><span>{job.experience}</span><b>לפרטים והגשת מועמדות ←</b></div>
+            </Link>
+          ))}
+        </div>
+        <div className="jobs-note">
+          <p>לא מצאתם תפקיד מדויק?</p>
+          <Link href="/intake?track=career">שלחו קורות חיים ונכיר <span>←</span></Link>
         </div>
       </section>
 
-      <section className="compact-section shell" id="solutions">
-        <div className="compact-heading">
-          <p className="kicker">מה צריך לקדם?</p>
-          <h2>שתי דרכים. יעד אחד.</h2>
-        </div>
-        <div className="compact-solutions">
-          <Link href="/solutions#talent" className="compact-solution">
-            <span>01 / TALENT</span>
-            <h3>לגייס את האנשים הנכונים</h3>
-            <p>לתפקיד אחד, צוות חדש או חיזוק זמני.</p>
-            <b>לגיוס טכנולוגי ←</b>
-          </Link>
-          <Link href="/solutions#technology" className="compact-solution accent">
-            <span>02 / TECHNOLOGY</span>
-            <h3>להפוך תהליך לפתרון עובד</h3>
-            <p>AI, אוטומציה ואינטגרציות שמייצרות ערך.</p>
-            <b>לפתרונות טכנולוגיים ←</b>
-          </Link>
-        </div>
-      </section>
-
-      <section className="compact-examples">
-        <div className="shell">
-          <div className="compact-heading inline">
-            <div><p className="kicker">דוגמאות מהשטח</p><h2>מתחילים מהמשימה.</h2></div>
-            <p>לא מחבילת שירותים. ממה שצריך לקרות עכשיו.</p>
-          </div>
-          <div className="example-list">
-            {examples.map((example, index) => (
-              <Link key={example.code} href={`/intake?track=${example.track}`}>
-                <span>0{index + 1}</span>
-                <small>{example.code}</small>
-                <h3>{example.title}</h3>
-                <p>{example.detail}</p>
-                <b>←</b>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="compact-final shell" id="careers">
-        <div>
-          <p className="kicker">לארגונים</p>
-          <h2>יש יעד שצריך לקדם?</h2>
-          <Link className="button primary" href="/intake">בואו נדבר <span>←</span></Link>
-        </div>
-        <div>
-          <p className="kicker">לאנשי טכנולוגיה</p>
-          <h2>מחפשים את הדבר הבא?</h2>
-          <Link className="button secondary" href="/intake?track=career">שלחו קורות חיים <span>←</span></Link>
-        </div>
+      <section className="talent-links shell" aria-label="מידע נוסף">
+        <Link href="/solutions" id="organizations"><small>לארגונים</small><strong>בונים את הצוות הנכון</strong><span>←</span></Link>
+        <Link href="/solutions#technology" id="research"><small>מחקר</small><strong>אנשים, AI והעבודה החדשה</strong><span>←</span></Link>
+        <Link href="/solutions" id="vision"><small>חזון</small><strong>טכנולוגיה שמקדמת אנשים</strong><span>←</span></Link>
+        <Link href="/intake" id="coretado"><small>Coretado</small><strong>בואו נדבר</strong><span>←</span></Link>
       </section>
 
       <Footer />
