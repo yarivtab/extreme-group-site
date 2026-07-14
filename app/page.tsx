@@ -21,8 +21,8 @@ export default function Home() {
       <section className="hero shell" aria-labelledby="hero-title">
         <div className="hero-copy reveal">
           <p className="eyebrow"><span /> טכנולוגיה שעובדת בשביל העסק</p>
-          <h1 id="hero-title">אנשים מעולים.<br />מערכות חכמות.<br /><em>פחות חיכוך.</em></h1>
-          <p className="hero-lede">Extreme Group הופכת גיוס טכנולוגי ופרויקטי AI, אוטומציה ו־IT למהירים, מדויקים ונוחים יותר — מהצורך הראשון עד לתוצאה.</p>
+          <h1 id="hero-title">אנשים וטכנולוגיה<br />שמזיזים ארגונים<br /><em>קדימה.</em></h1>
+          <p className="hero-lede">Extreme Group הופכת גיוס טכנולוגי ופרויקטי AI, אוטומציה ו־IT לאוטומטיים יותר, מדויקים יותר, מהירים יותר — ובעיקר נוחים יותר.</p>
           <div className="actions">
             <Link className="button primary" href="/intake">קבלו פרטים <span>←</span></Link>
             <Link className="button secondary" href="/intake?track=career">שלחו קורות חיים</Link>
@@ -30,25 +30,11 @@ export default function Home() {
           <Link className="text-link" href="#careers">או צפו במשרות הפתוחות <span>↙</span></Link>
         </div>
 
-        <div className="hero-system reveal delay-1" aria-label="שני תחומי הפעילות של Extreme Group">
-          <div className="system-orbit orbit-one" />
-          <div className="system-orbit orbit-two" />
-          <div className="system-core">
-            <span>EXTREME</span>
-            <strong>הצורך שלכם</strong>
-            <small>נקודת התחלה אחת</small>
-          </div>
-          <div className="system-node node-talent">
-            <span>01</span>
-            <strong>Talent</strong>
-            <small>גיוס · צוותים · מומחים</small>
-          </div>
-          <div className="system-node node-tech">
-            <span>02</span>
-            <strong>Tech</strong>
-            <small>AI · אוטומציה · IT</small>
-          </div>
-          <div className="pulse-dot dot-one" /><div className="pulse-dot dot-two" /><div className="pulse-dot dot-three" />
+        <div className="hero-visual reveal delay-1" aria-label="מערכת טכנולוגית חכמה המחברת AI, אוטומציה ותשתיות">
+          <img src="/extreme-tech-hero.png" alt="ארכיטקטורה טכנולוגית מתקדמת של AI, אוטומציה ותשתיות" />
+          <div className="tech-signal"><span>LIVE SYSTEM</span><strong>AI · AUTOMATION · IT</strong></div>
+          <div className="tech-metric"><small>02 / CORE</small><strong>טכנולוגיה<br />שעובדת.</strong></div>
+          <div className="tech-index">EXT / 2026</div>
         </div>
       </section>
 

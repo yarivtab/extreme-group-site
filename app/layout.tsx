@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Heebo, Space_Mono } from "next/font/google";
+import { Assistant, Rubik, Space_Mono } from "next/font/google";
 import "./globals.css";
 
-const heebo = Heebo({
-  variable: "--font-heebo",
+const assistant = Assistant({
+  variable: "--font-assistant",
+  weight: "variable",
+  subsets: ["hebrew", "latin"],
+});
+
+const rubik = Rubik({
+  variable: "--font-rubik",
+  weight: "variable",
   subsets: ["hebrew", "latin"],
 });
 
@@ -35,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body
-        className={`${heebo.variable} ${spaceMono.variable}`}
+        className={`${assistant.variable} ${rubik.variable} ${spaceMono.variable}`}
       >
         {children}
       </body>
