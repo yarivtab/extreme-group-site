@@ -37,13 +37,6 @@ export default function Home() {
           </div>
           <Link className="text-link" href="#careers">או צפו במשרות הפתוחות <span>↙</span></Link>
         </div>
-
-        <div className="hero-visual reveal delay-1" aria-label="מערכת טכנולוגית חכמה המחברת AI, אוטומציה ותשתיות">
-          <img src="/extreme-tech-hero.png" alt="ארכיטקטורה טכנולוגית מתקדמת של AI, אוטומציה ותשתיות" />
-          <div className="tech-signal"><span>LIVE SYSTEM</span><strong>AI · AUTOMATION · IT</strong></div>
-          <div className="tech-metric"><small>02 / CORE</small><strong>טכנולוגיה<br />שעובדת.</strong></div>
-          <div className="tech-index">EXT / 2026</div>
-        </div>
       </section>
 
       <section className="trust-band">

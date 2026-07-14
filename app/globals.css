@@ -79,3 +79,14 @@ body{background:#fbfdff;color:#101522}
 .final-cta{position:relative;overflow:hidden;background:linear-gradient(120deg,#eef5ff,#fff 48%,#fff0f8);color:#101522;border-top:1px solid var(--tech-line)}
 .final-cta:after{content:"";position:absolute;width:360px;height:360px;left:8%;top:-250px;border:55px solid rgba(23,103,255,.07);border-radius:50%}.final-cta .kicker.light{color:var(--tech-blue)}.final-cta h2 em{color:var(--lime)}.final-cta .button.ghost-light{color:#101522;border-color:#101522}
 @media(max-width:560px){.hero-visual{border-radius:12px;box-shadow:0 24px 55px rgba(28,69,128,.16),8px 8px 0 rgba(102,226,255,.15)}.early-intake{border-radius:10px}.mission-card:hover{border-top-width:1px}.jobs-panel{border-radius:10px}}
+
+/* Type-led hero: the message is the visual */
+.hero{min-height:690px;display:flex;align-items:center;padding-block:96px}
+.hero-copy{width:100%;max-width:1040px}
+.hero-copy:after{content:"EXTREME / PEOPLE + TECHNOLOGY";display:block;direction:ltr;margin-top:58px;padding-top:14px;border-top:1px solid var(--tech-line);font:700 9px/1 var(--font-space-mono);letter-spacing:.16em;color:var(--tech-blue)}
+.hero h1{max-width:980px;font-size:clamp(68px,7vw,102px);line-height:.96;margin:24px 0 28px}
+.hero-lede{max-width:790px;font-size:22px;line-height:1.62}
+.hero-stats{max-width:790px;margin-top:34px}
+.hero .actions{margin-top:36px}
+@media(max-width:900px){.hero{min-height:auto;padding-block:76px}.hero h1{font-size:clamp(60px,9vw,78px)}.hero-copy{max-width:760px}}
+@media(max-width:560px){.hero{padding-block:58px}.hero h1{font-size:50px;line-height:1.02}.hero-lede{font-size:18px}.hero-copy:after{margin-top:42px}.hero .actions{margin-top:28px}}
