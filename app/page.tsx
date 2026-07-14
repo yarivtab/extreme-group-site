@@ -28,19 +28,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="trust-band compact-trust">
-        <div className="shell trust-grid">
-          <p>שותפים לארגונים מובילים בישראל</p>
-          <div className="logo-row" aria-label="לקוחות נבחרים">
-            <img src="/client-philips.png" alt="Philips" />
-            <img src="/client-ceva.png" alt="CEVA" />
-            <img src="/client-qualcomm.png" alt="Qualcomm" />
-            <img src="/client-pepper.png" alt="Pepper" />
-            <img src="/client-biosense.png" alt="Biosense Webster" />
-          </div>
-        </div>
-      </section>
-
       <section className="compact-section shell" id="solutions">
         <div className="compact-heading">
           <p className="kicker">מה צריך לקדם?</p>
