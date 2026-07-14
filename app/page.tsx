@@ -55,7 +55,7 @@ export default function Home() {
       <section className="trust-band">
         <div className="shell trust-grid">
           <p>שותפים לצמיחה של ארגונים מובילים בישראל</p>
-          <div className="logo-row" aria-label="מגזרי לקוחות"><span>FINTECH</span><span>HEALTH</span><span>ENTERPRISE</span><span>RETAIL</span><span>PUBLIC</span></div>
+          <div className="logo-row" aria-label="לקוחות נבחרים"><img src="/client-philips.png" alt="Philips" /><img src="/client-ceva.png" alt="CEVA" /><img src="/client-qualcomm.png" alt="Qualcomm" /><img src="/client-pepper.png" alt="Pepper" /><img src="/client-biosense.png" alt="Biosense Webster" /></div>
         </div>
       </section>
 
