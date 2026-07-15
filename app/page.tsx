@@ -9,7 +9,7 @@ export default function Home() {
 
       <section className="talent-hero shell" aria-labelledby="hero-title">
         <p className="eyebrow"><span /> EXTREME EXPERTS</p>
-        <h1 id="hero-title">העבודה הבאה שלך יכולה להתחיל כאן.</h1>
+        <h1 id="hero-title">העבודה הבאה שלך יכולה להתחיל <em>כאן.</em></h1>
         <p>הזדמנויות טכנולוגיות עם אתגר אמיתי, צוותים מצוינים ומקום להשפיע.</p>
       </section>
 
