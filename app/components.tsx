@@ -11,8 +11,8 @@ export function Header() {
 export function Footer() {
   return <footer className="extreme-footer">
     <div className="shell footer-brand-row">
-      <Link href="/" className="brand footer-brand" aria-label="Extreme Group דף הבית"><img className="brand-logo" src="/extreme-logo.png" alt="Extreme" width="238" height="46" /></Link>
-      <p>Recruiting Intelligence שמחבר אנשים להזדמנויות הנכונות.</p>
+      <div className="footer-brand-copy"><Link href="/" className="footer-wordmark" aria-label="Extreme Group דף הבית">EXTREME<span>.</span></Link><p>Recruiting Intelligence שמחבר אנשים להזדמנויות הנכונות.</p></div>
+      <div className="footer-socials" aria-label="עקבו אחרינו"><a href="https://www.linkedin.com/company/extreme-technologies" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://on.fb.me/1Fe92Pr" target="_blank" rel="noreferrer">Facebook ↗</a><a href="https://bit.ly/1D2IoVF" target="_blank" rel="noreferrer">Instagram ↗</a></div>
     </div>
     <div className="shell footer-directory">
       <div><strong>מומחים</strong><Link href="/#experts">משרות פתוחות</Link><Link href="/intake?track=career">הגשת מועמדות</Link></div>
