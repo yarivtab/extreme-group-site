@@ -6,6 +6,7 @@ export type Job = {
   location: string;
   workMode: string;
   experience: string;
+  salaryRange?: string;
   referralBonus: number;
   summary: string;
   responsibilities: string[];
