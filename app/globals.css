@@ -175,3 +175,28 @@ footer{background:#050505;color:#fff}
 .exi-recommends{display:grid;grid-template-columns:230px 1fr;min-height:310px;margin-bottom:100px;background:#f7f7f7;border-top:4px solid var(--lime)}.exi-recommends img{width:230px;height:100%;object-fit:cover}.exi-recommends>div{padding:42px 48px}.exi-recommends .kicker{color:var(--lime)}.exi-recommends h2{font:600 42px/1 var(--font-rubik);letter-spacing:-.035em;margin:30px 0 14px}.exi-recommends p{color:#666;font-size:17px}.exi-recommends a{display:inline-block;margin-top:24px;font-weight:700;border-bottom:1px solid}
 @media(max-width:900px){.insight-feature{grid-template-columns:1fr}.insight-feature-art{min-height:330px}.insight-editorial-grid{grid-template-columns:1fr 1fr}.entry-1{grid-column:span 2}.insight-video{grid-row:span 1}.exi-recommends{grid-template-columns:190px 1fr}.exi-recommends img{width:190px}}
 @media(max-width:560px){.insights-hero{padding-block:68px 42px}.insights-hero h1{font-size:48px}.insight-feature-art{min-height:290px}.insight-feature-copy{padding:38px 24px}.insight-feature-copy h2{font-size:36px;margin-top:34px}.insight-editorial-grid{grid-template-columns:1fr}.entry-1{grid-column:span 1}.entry-1 h3{font-size:29px}.insight-entry{min-height:250px}.insight-feed{padding-block:70px}.insight-feed-head{display:block}.insight-feed-head>span{display:block;margin-top:18px}.exi-recommends{grid-template-columns:1fr;margin-bottom:70px}.exi-recommends img{width:100%;height:280px;object-position:center 35%}.exi-recommends>div{padding:32px 24px}.exi-recommends h2{font-size:34px}}
+
+/* Deliberate black accents — authority without losing the light brand system */
+.nav-cta{padding:12px 18px;border:1px solid #111;background:#111;color:#fff;transition:background .2s,border-color .2s,color .2s,transform .2s}
+.nav-cta:hover{background:var(--lime);border-color:var(--lime);color:#fff;transform:translateY(-1px)}
+.intake-page .nav-cta{color:#fff}
+.talent-hero-actions .hero-employer,
+.inner-hero .button.primary,
+.job-detail-head .button.primary,
+.intake-form .button.primary{background:#111;border-color:#111;color:#fff}
+.talent-hero-actions .hero-employer:hover,
+.inner-hero .button.primary:hover,
+.job-detail-head .button.primary:hover,
+.intake-form .button.primary:hover{background:var(--lime);border-color:var(--lime)}
+.role-card-bottom b{color:#111}
+.role-card:hover .role-card-bottom b{color:var(--lime)}
+.extreme-footer{background:#090909;color:#fff;border-top:0}
+.extreme-footer .footer-brand-row p{color:#c6c6c6}
+.extreme-footer .footer-socials a{color:#a8a8a8}
+.extreme-footer .footer-socials a:hover{color:#ff62bb}
+.extreme-footer .footer-directory{border-top-color:#303030}
+.extreme-footer .footer-directory strong{color:#fff}
+.extreme-footer .footer-directory a{color:#a8a8a8}
+.extreme-footer .footer-directory a:hover{color:#ff62bb}
+.extreme-footer .footer-legal{border-top-color:#303030;color:#777}
+@media(max-width:560px){.nav-cta{padding:10px 12px}}
