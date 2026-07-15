@@ -7,13 +7,15 @@ export default function Home() {
     <main className="talent-home">
       <Header />
 
-      <section className="talent-hero shell" aria-labelledby="hero-title">
-        <p className="eyebrow"><span /> RECRUITING INTELLIGENCE NETWORK</p>
-        <h1 id="hero-title"><span className="hero-english" dir="ltr">Recruiting Intelligence</span><span className="hero-hebrew">שמחבר אנשים <em>להזדמנויות הנכונות.</em></span></h1>
-        <p>Data איכותי, מודלי AI ואוטומציה שמפחיתים רעש, משפרים התאמות ומקצרים את הדרך — לצוותי גיוס ולטאלנטים.</p>
-        <div className="talent-hero-actions">
-          <Link className="button hero-employer" href="/intake?track=talent">אני מגייסת <span>←</span></Link>
-          <Link className="button hero-talent" href="#experts">אני מחפש/ת הזדמנות <span>↓</span></Link>
+      <section className="talent-hero" aria-labelledby="hero-title">
+        <div className="shell talent-hero-inner">
+          <p className="eyebrow"><span /> RECRUITING INTELLIGENCE NETWORK</p>
+          <h1 id="hero-title"><span className="hero-english" dir="ltr">Recruiting Intelligence</span><span className="hero-hebrew">שמחבר אנשים <em>להזדמנויות הנכונות.</em></span></h1>
+          <p>Data איכותי, מודלי AI ואוטומציה שמפחיתים רעש, משפרים התאמות ומקצרים את הדרך — לצוותי גיוס ולטאלנטים.</p>
+          <div className="talent-hero-actions">
+            <Link className="button hero-employer" href="/intake?track=talent">אני מגייסת <span>←</span></Link>
+            <Link className="button hero-talent" href="#experts">אני מחפש/ת הזדמנות <span>↓</span></Link>
+          </div>
         </div>
       </section>
 

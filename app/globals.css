@@ -200,3 +200,10 @@ footer{background:#050505;color:#fff}
 .extreme-footer .footer-directory a:hover{color:#ff62bb}
 .extreme-footer .footer-legal{border-top-color:#303030;color:#777}
 @media(max-width:560px){.nav-cta{padding:10px 12px}}
+
+/* True edge-to-edge hero background; content stays on the site grid */
+.talent-home .talent-hero{width:100%;max-width:none;margin:0;box-shadow:none;clip-path:none}
+.talent-hero-inner{position:relative;z-index:1;padding-block:96px 88px}
+.talent-home .talent-hero{padding-block:0;min-height:560px;display:flex;align-items:center}
+.talent-home .talent-hero>.talent-hero-inner>p:not(.eyebrow){color:#606060;font-size:19px;line-height:1.6;max-width:680px}
+@media(max-width:560px){.talent-home .talent-hero{min-height:auto}.talent-hero-inner{padding-block:64px 58px}.talent-home .talent-hero>.talent-hero-inner>p:not(.eyebrow){font-size:17px;max-width:95%}}
