@@ -20,14 +20,13 @@ export default function VisionPage() {
 
     <section className="vision-hero">
       <div className="shell">
-        <p className="kicker">OUR VISION</p>
-        <h1>בונים את שכבת ה־Intelligence<br /><em>שמחברת אנשים להזדמנויות.</em></h1>
+        <div className="vision-hero-head"><h1>בונים את שכבת ה־Intelligence<br /><em>שמחברת אנשים להזדמנויות.</em></h1><p className="kicker">OUR VISION</p></div>
         <div className="vision-hero-copy"><p>החזון שלנו הוא עולם עבודה מדויק, מהיר ואנושי יותר — שבו כל ארגון יכול להגיע לאנשים הנכונים, וכל אדם יכול להגיע להזדמנות שבה יוכל להצליח.</p><span>AI‑NATIVE<br />HUMAN‑LED</span></div>
       </div>
     </section>
 
     <section className="vision-graphic" aria-labelledby="vision-graphic-title">
-      <div className="shell vision-graphic-head"><p className="kicker">THE INTELLIGENCE LAYER</p><h2 id="vision-graphic-title">לא עוד כלי AI.<br />מערכת שלמה שעובדת יחד.</h2></div>
+      <div className="shell vision-graphic-head"><h2 id="vision-graphic-title">לא עוד כלי AI.<br />מערכת שלמה שעובדת יחד.</h2><p className="kicker">THE INTELLIGENCE LAYER</p></div>
       <div className="shell vision-network" aria-label="Data, מודלי AI ואוטומציה מחזקים החלטות אנושיות ומייצרים התאמה מדויקת">
         <div className="vision-node node-data"><span>01</span><strong>Quality Data</strong><small>שוק · ניסיון · יכולות</small></div>
         <div className="vision-node node-models"><span>02</span><strong>AI Models</strong><small>זיהוי · דירוג · הקשר</small></div>
@@ -39,12 +38,13 @@ export default function VisionPage() {
     </section>
 
     <section className="vision-mission shell" aria-labelledby="mission-title">
-      <div className="vision-mission-intro"><div><p className="kicker">OUR MISSION</p><h2 id="mission-title">לבנות Recruiting Intelligence Network שמקצר את הדרך בין צורך ארגוני לטאלנט המתאים.</h2></div><p>אנחנו משלבים Data איכותי, מודלי AI, אוטומציה ומומחיות אנושית כדי לייעל את כל שרשרת הגיוס — מהבנת הצורך ומיפוי השוק, דרך איתור והתאמה, ועד לקליטה ולהתקדמות מקצועית.</p></div>
+      <div className="vision-mission-head"><h2 id="mission-title">לבנות Recruiting Intelligence Network שמקצר את הדרך בין צורך ארגוני לטאלנט המתאים.</h2><p className="kicker">OUR MISSION</p></div>
+      <p className="vision-mission-copy">אנחנו משלבים Data איכותי, מודלי AI, אוטומציה ומומחיות אנושית כדי לייעל את כל שרשרת הגיוס — מהבנת הצורך ומיפוי השוק, דרך איתור והתאמה, ועד לקליטה ולהתקדמות מקצועית.</p>
       <div className="vision-pillars">{missionPillars.map((pillar) => <article key={pillar.number}><span>{pillar.number}</span><h3>{pillar.title}</h3><p>{pillar.text}</p></article>)}</div>
     </section>
 
     <section className="founder-story" aria-labelledby="founder-story-title">
-      <div className="shell founder-story-head"><p className="kicker">OUR FOUNDING STORY</p><h2 id="founder-story-title">למה הקמנו את Extreme —<br />ולמה אנחנו בונים אותה מחדש.</h2></div>
+      <div className="shell founder-story-head"><h2 id="founder-story-title">למה הקמנו את Extreme —<br />ולמה אנחנו בונים אותה מחדש.</h2><p className="kicker">OUR FOUNDING STORY</p></div>
       <div className="shell founder-path" aria-label="המסע של Extreme מחברת תוכנה ל־AI-Native Recruiting Intelligence">
         <div><span>01</span><strong>Software</strong><small>פרויקטי פיתוח</small></div>
         <i>←</i>
@@ -67,7 +67,7 @@ export default function VisionPage() {
     </section>
 
     <section className="vision-belief">
-      <div className="shell"><p className="kicker">WHAT WE BELIEVE</p><blockquote>העתיד של הגיוס לא יהיה פחות אנושי.<br /><em>הוא יהיה אנושי — עם Intelligence טוב יותר.</em></blockquote><div><span>פחות זמן בחיפוש</span><span>פחות רעש בתהליך</span><span>יותר חיבורים שמצליחים</span></div><Link className="button primary" href="/solutions">איך אנחנו עובדים עם ארגונים <span>←</span></Link></div>
+      <div className="shell"><div className="vision-belief-head"><blockquote>העתיד של הגיוס לא יהיה פחות אנושי.<br /><em>הוא יהיה אנושי — עם Intelligence טוב יותר.</em></blockquote><p className="kicker">WHAT WE BELIEVE</p></div><div className="vision-belief-points"><span>פחות זמן בחיפוש</span><span>פחות רעש בתהליך</span><span>יותר חיבורים שמצליחים</span></div><Link className="button primary" href="/solutions">איך אנחנו עובדים עם ארגונים <span>←</span></Link></div>
     </section>
 
     <Footer />
