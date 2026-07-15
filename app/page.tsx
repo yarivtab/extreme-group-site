@@ -21,7 +21,7 @@ export default function Home() {
 
       <section className="network-steps" id="how-it-works" aria-labelledby="steps-title">
         <div className="shell">
-          <div className="network-steps-head"><p className="kicker">HOW IT WORKS</p><h2 id="steps-title">שלושה צעדים לחיבור מדויק יותר.</h2></div>
+          <div className="network-steps-head"><h2 id="steps-title">שלושה צעדים לחיבור מדויק יותר.</h2><p className="kicker">HOW IT WORKS</p></div>
           <div className="network-step-grid">
             <article><span>01</span><h3>משתפים צורך או פרופיל</h3><p>צוותי גיוס מגדירים תפקיד. טאלנטים משתפים ניסיון, יכולות והעדפות.</p></article>
             <article><span>02</span><h3>ה־Intelligence עובד</h3><p>Data, מודלי AI ואוטומציה מזהים התאמות ומפחיתים רעש משני הצדדים.</p></article>
