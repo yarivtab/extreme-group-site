@@ -39,7 +39,7 @@ export function JobsExplorer({ jobs }: { jobs: Job[] }) {
       {filteredJobs.map((job, index) => <Link href={`/jobs/${job.slug}`} className="experts-job-row" key={job.slug}>
         <span className="experts-job-index">{String(index + 1).padStart(2, "0")}</span>
         <div><small>{job.field}</small><h3>{job.title}</h3><p>{job.summary}</p></div>
-        <div className="experts-job-meta"><span>{job.location}</span><span>{job.workMode}</span><span>{job.experience}</span></div>
+        <div className="experts-job-meta"><span>{job.location}</span><span>{job.workMode}</span><span>{job.experience}</span><span className="referral-tag">Referral · ₪{job.referralBonus.toLocaleString("he-IL")}</span></div>
         <b aria-hidden="true">←</b>
       </Link>)}
     </div> : <div className="experts-empty"><h3>לא מצאנו משרה לפי הסינון הזה.</h3><p>אפשר לנקות את הפילטרים או להעלות קורות חיים — ונחפש התאמה גם מעבר לרשימה הפתוחה.</p><button type="button" onClick={reset}>הציגו את כל המשרות</button></div>}
