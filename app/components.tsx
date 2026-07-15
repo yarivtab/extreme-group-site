@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export function Header() {
   return <header className="site-header"><div className="shell nav-wrap">
-    <Link href="/" className="brand" aria-label="Extreme Group דף הבית"><img className="brand-logo" src="/extreme-logo.png" alt="Extreme" width="238" height="46" /></Link>
-    <nav aria-label="ניווט ראשי"><Link href="/#experts">מומחים</Link><Link href="/solutions">ארגונים</Link><Link href="/#research">מחקר</Link><Link href="/#vision">חזון</Link><Link href="/#coretado">Coretado</Link></nav>
     <Link className="nav-cta" href="/intake?track=career">הגשת מועמדות <span>←</span></Link>
+    <nav aria-label="ניווט ראשי"><Link href="/#experts">מומחים</Link><Link href="/solutions">ארגונים</Link><Link href="/#research">מחקר</Link><Link href="/#vision">חזון</Link><Link href="/#coretado">Coretado</Link></nav>
+    <Link href="/" className="brand" aria-label="Extreme Group דף הבית"><img className="brand-logo" src="/extreme-logo.png" alt="Extreme" width="238" height="46" /></Link>
   </div></header>;
 }
 

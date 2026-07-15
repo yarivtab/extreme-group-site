@@ -148,3 +148,6 @@ body{background:#fff;color:#111}.site-header{background:rgba(255,255,255,.94);bo
 footer{background:#050505;color:#fff}
 @media(max-width:900px){.network-steps-head{display:block}.network-steps-head h2{margin-top:16px}.network-step-grid{grid-template-columns:1fr}.network-step-grid article{border-left:0;border-bottom:1px solid #d8d8d8;min-height:auto;padding:24px 0}.network-step-grid article:last-child{border-bottom:0}.network-step-grid h3{margin:28px 0 8px}.network-step-grid p{max-width:600px}}
 @media(max-width:560px){.network-steps{padding-block:58px}.network-steps-head h2{font-size:32px}.network-step-grid h3{font-size:22px}}
+
+/* Header sides: application action on the right, Extreme logo on the left */
+@media(max-width:900px){.nav-wrap{justify-content:space-between}.nav-wrap .nav-cta{margin-right:0}}
