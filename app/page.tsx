@@ -37,8 +37,8 @@ export default function Home() {
             <span><img src="/client-philips.png" alt="Philips" width="250" height="90" /></span>
             <span><img src="/client-ceva.png" alt="CEVA" width="142" height="90" /></span>
             <span><img src="/client-biosense.png" alt="Biosense Webster, Johnson & Johnson" width="283" height="79" /></span>
-            <span><img src="/client-pepper.png" alt="Pepper" width="259" height="90" /></span>
-            <span><img src="/client-qualcomm.png" alt="Qualcomm" width="292" height="90" /></span>
+            <span><img src="/client-leumi.svg" alt="בנק לאומי" width="1552" height="1495" /></span>
+            <span><img src="/client-essence.svg" alt="Essence Group" width="1537" height="394" /></span>
           </div>
         </div>
       </section>
