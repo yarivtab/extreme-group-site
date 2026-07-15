@@ -51,7 +51,7 @@ export default function Home() {
 
       <section className="talent-links shell" aria-label="מידע נוסף">
         <Link href="/solutions" id="organizations"><small>לארגונים</small><strong>בונים את הצוות הנכון</strong><span>←</span></Link>
-        <Link href="/solutions#technology" id="research"><small>תובנות</small><strong>אנשים, AI והעבודה החדשה</strong><span>←</span></Link>
+        <Link href="https://www.extreme.co.il/extreme-academy/" id="research"><small>תובנות</small><strong>אנשים, AI והעבודה החדשה</strong><span>←</span></Link>
         <Link href="/solutions" id="vision"><small>חזון</small><strong>טכנולוגיה שמקדמת אנשים</strong><span>←</span></Link>
         <Link href="/intake" id="coretado"><small>Coretado</small><strong>בואו נדבר</strong><span>←</span></Link>
       </section>
