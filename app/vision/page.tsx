@@ -27,14 +27,10 @@ export default function VisionPage() {
 
     <section className="vision-graphic" aria-labelledby="vision-graphic-title">
       <div className="shell vision-graphic-head"><h2 id="vision-graphic-title">לא עוד כלי AI.<br />מערכת שלמה שעובדת יחד.</h2><p className="kicker">THE INTELLIGENCE LAYER</p></div>
-      <div className="shell vision-network" aria-label="Data, מודלי AI ואוטומציה מחזקים החלטות אנושיות ומייצרים התאמה מדויקת">
-        <div className="vision-node node-data"><span>01</span><strong>Quality Data</strong><small>שוק · ניסיון · יכולות</small></div>
-        <div className="vision-node node-models"><span>02</span><strong>AI Models</strong><small>זיהוי · דירוג · הקשר</small></div>
-        <div className="vision-node node-automation"><span>03</span><strong>Automation</strong><small>תנועה · מהירות · רציפות</small></div>
-        <div className="vision-core"><small>HUMAN</small><strong>שיקול דעת</strong><span>אנשים בוחרים אנשים</span></div>
-        <div className="vision-output"><small>OUTPUT / 01</small><strong>החיבור הנכון</strong><span>ארגון × טאלנט × הזדמנות</span></div>
-        <i className="signal-one" /><i className="signal-two" /><i className="signal-three" />
-      </div>
+      <figure className="shell vision-photo">
+        <img src="/vision-human-intelligence.png" alt="מומחית גיוס ומומחה טכנולוגי מנתחים יחד קשרים ותובנות מבוססי Data" width="1672" height="941" />
+        <figcaption><strong>טכנולוגיה שמחזקת<br />שיקול דעת אנושי.</strong><span>DATA × AI × AUTOMATION<br />HUMAN JUDGMENT</span></figcaption>
+      </figure>
     </section>
 
     <section className="vision-mission shell" aria-labelledby="mission-title">
