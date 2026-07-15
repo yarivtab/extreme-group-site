@@ -20,7 +20,7 @@ export function Footer() {
     <div className="shell footer-directory">
       <div><strong>מומחים</strong><Link href="/#experts">משרות פתוחות</Link><Link href="/intake?track=career">הגשת מועמדות</Link></div>
       <div><strong>ארגונים</strong><Link href="/solutions">פתרונות</Link><Link href="/solutions#talent">גיוס טכנולוגי</Link><Link href="/solutions#technology">AI ואוטומציה</Link></div>
-      <div><strong>תובנות</strong><Link href="https://www.extreme.co.il/extreme-academy/">מאמרים ותוכן</Link><Link href="https://www.extreme.co.il/extreme-academy/">סקרים ומגמות</Link></div>
+      <div><strong>תובנות</strong><Link href="https://www.extreme.co.il/extreme-academy/">בלוגים ומאמרים שלנו</Link><Link href="https://www.extreme.co.il/extreme-academy/">סקרים ומגמות</Link></div>
       <div><strong>Extreme</strong><Link href="/#vision">חזון</Link><Link href="/#coretado">Coretado</Link></div>
       <div><strong>קשר</strong><Link href="/intake">מרכז הפנייה</Link><a href="mailto:hello@extreme.co.il">hello@extreme.co.il</a></div>
     </div>
