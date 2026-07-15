@@ -32,7 +32,7 @@ export default function Home() {
 
       <section className="client-trust-strip" aria-labelledby="client-trust-title">
         <div className="shell client-trust-inner">
-          <div><p className="kicker">TRUSTED NETWORK</p><h2 id="client-trust-title">ארגונים שבחרו לעבוד עם Extreme</h2></div>
+          <div className="client-trust-copy"><h2 id="client-trust-title">ארגונים שבחרו לעבוד עם Extreme</h2><p className="kicker">TRUSTED NETWORK</p></div>
           <div className="client-logo-row" aria-label="לקוחות נבחרים">
             <span><img src="/client-philips.png" alt="Philips" width="250" height="90" /></span>
             <span><img src="/client-ceva.png" alt="CEVA" width="142" height="90" /></span>
@@ -45,7 +45,7 @@ export default function Home() {
 
       <section className="jobs-section shell" id="experts" aria-labelledby="jobs-title">
         <div className="jobs-title-row">
-          <div><p className="kicker">LATEST ROLES</p><h2 id="jobs-title">משרות פתוחות</h2></div>
+          <div className="bilingual-head"><h2 id="jobs-title">משרות פתוחות</h2><p className="kicker">LATEST ROLES</p></div>
           <span>{jobs.length} תפקידים נבחרים</span>
         </div>
         <div className="job-card-grid">

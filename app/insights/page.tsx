@@ -13,8 +13,7 @@ export default function InsightsPage() {
   return <main className="insights-page">
     <Header />
     <section className="insights-hero shell" aria-labelledby="insights-title">
-      <p className="kicker">EXTREME INSIGHTS</p>
-      <h1 id="insights-title">תובנות על אנשים, <em>Data</em> והעבודה החדשה.</h1>
+      <div className="bilingual-head bilingual-head-hero"><h1 id="insights-title">תובנות על אנשים, <em>Data</em> והעבודה החדשה.</h1><p className="kicker">EXTREME INSIGHTS</p></div>
       <p>מאמרים מקוריים, מחקר, סקרים ושיחות שמחברים בין גיוס, טכנולוגיה והחלטות אנושיות טובות יותר.</p>
       <nav className="insight-topics" aria-label="נושאי תוכן"><a href="#latest">הכול</a><a href="#latest">Recruiting Intelligence</a><a href="#latest">AI ואוטומציה</a><a href="#latest">Data ומחקר</a><a href="#latest">קריירה וטאלנטים</a></nav>
     </section>
@@ -25,7 +24,7 @@ export default function InsightsPage() {
     </section>
 
     <section className="insight-feed shell" id="latest" aria-labelledby="latest-title">
-      <div className="insight-feed-head"><div><p className="kicker">LATEST THINKING</p><h2 id="latest-title">מה אנחנו חושבים עכשיו</h2></div><span>{articles.length} תכנים בסקיצה</span></div>
+      <div className="insight-feed-head"><div className="bilingual-head"><h2 id="latest-title">מה אנחנו חושבים עכשיו</h2><p className="kicker">LATEST THINKING</p></div><span>{articles.length} תכנים בסקיצה</span></div>
       <div className="insight-editorial-grid">
         {articles.map((article, index) => <article className={`insight-entry entry-${index + 1}`} key={article.title}><small>{article.type}</small><h3>{article.title}</h3><p>{article.meta}</p><span aria-hidden="true">↗</span></article>)}
         <article className="insight-entry insight-video"><small>VIDEO / בקרוב</small><div className="video-mark" aria-hidden="true">▶</div><h3>שיחה קצרה על AI, גיוס ומה עדיין חייב להישאר אנושי.</h3><p>וידאו · 08:40</p></article>
@@ -34,7 +33,7 @@ export default function InsightsPage() {
 
     <section className="exi-recommends shell">
       <img src="/exi-avatar.png" alt="אקסי" width="900" height="900" />
-      <div><p className="kicker">EXI RECOMMENDS</p><h2>נקודת התחלה אחת, בלי רעש.</h2><p>בכל חודש אקסי תבחר מאמר, נתון או שיחה אחת שכדאי לקחת לעבודה.</p><Link href="/intake?track=career">ספרו לנו מה מעניין אתכם ←</Link></div>
+      <div><div className="bilingual-head bilingual-head-compact"><h2>נקודת התחלה אחת, בלי רעש.</h2><p className="kicker">EXI RECOMMENDS</p></div><p>בכל חודש אקסי תבחר מאמר, נתון או שיחה אחת שכדאי לקחת לעבודה.</p><Link href="/intake?track=career">ספרו לנו מה מעניין אתכם ←</Link></div>
     </section>
     <Footer />
   </main>;

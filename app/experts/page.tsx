@@ -21,9 +21,8 @@ export default function ExpertsPage() {
 
     <section className="experts-hero">
       <div className="shell experts-hero-grid">
-        <div>
-          <p className="kicker">EXTREME EXPERTS</p>
-          <h1>ההזדמנות הבאה שלכם,<br /><em>בהתאמה טובה יותר.</em></h1>
+        <div className="experts-hero-copy">
+          <div className="bilingual-head bilingual-head-hero"><h1>ההזדמנות הבאה שלכם,<br /><em>בהתאמה טובה יותר.</em></h1><p className="kicker">EXTREME EXPERTS</p></div>
           <p>משרות ופרויקטים לאנשים של טכנולוגיה. בחרו תפקיד פתוח או העלו קורות חיים פעם אחת — ואנחנו נחפש את החיבור הנכון עבורכם.</p>
         </div>
         <aside className="experts-resume-card">
@@ -37,13 +36,13 @@ export default function ExpertsPage() {
     </section>
 
     <section className="experts-openings shell" id="roles" aria-labelledby="experts-jobs-title">
-      <div className="experts-section-head"><div><p className="kicker">OPEN OPPORTUNITIES</p><h2 id="experts-jobs-title">מצאו את התפקיד הבא.</h2></div><p>חפשו לפי תחום או מיקום, היכנסו למשרה והגישו מועמדות ישירות.</p></div>
+      <div className="experts-section-head"><div className="bilingual-head"><h2 id="experts-jobs-title">מצאו את התפקיד הבא.</h2><p className="kicker">OPEN OPPORTUNITIES</p></div><p>חפשו לפי תחום או מיקום, היכנסו למשרה והגישו מועמדות ישירות.</p></div>
       <JobsExplorer jobs={jobs} />
     </section>
 
     <section className="experts-why" aria-labelledby="experts-why-title">
       <div className="shell">
-        <div className="experts-why-head"><p className="kicker">WHY EXTREME</p><h2 id="experts-why-title">למה מומחים בוחרים לעבוד עם Extreme?</h2></div>
+        <div className="experts-why-head bilingual-head"><h2 id="experts-why-title">למה מומחים בוחרים לעבוד עם Extreme?</h2><p className="kicker">WHY EXTREME</p></div>
         <div className="experts-reasons">{reasons.map((reason) => <article key={reason.number}><span>{reason.number}</span><h3>{reason.title}</h3><p>{reason.text}</p></article>)}</div>
         <div className="experts-final-line"><p>לא מצאתם כרגע את המשרה המדויקת?</p><Link href="/intake?track=career">העלו קורות חיים ונכיר <span>←</span></Link></div>
       </div>
