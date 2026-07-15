@@ -30,6 +30,19 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="client-trust-strip" aria-labelledby="client-trust-title">
+        <div className="shell client-trust-inner">
+          <div><p className="kicker">TRUSTED NETWORK</p><h2 id="client-trust-title">ארגונים שבחרו לעבוד עם Extreme</h2></div>
+          <div className="client-logo-row" aria-label="לקוחות נבחרים">
+            <span><img src="/client-philips.png" alt="Philips" width="250" height="90" /></span>
+            <span><img src="/client-ceva.png" alt="CEVA" width="142" height="90" /></span>
+            <span><img src="/client-biosense.png" alt="Biosense Webster, Johnson & Johnson" width="283" height="79" /></span>
+            <span><img src="/client-pepper.png" alt="Pepper" width="259" height="90" /></span>
+            <span><img src="/client-qualcomm.png" alt="Qualcomm" width="292" height="90" /></span>
+          </div>
+        </div>
+      </section>
+
       <section className="jobs-section shell" id="experts" aria-labelledby="jobs-title">
         <div className="jobs-title-row">
           <div><p className="kicker">LATEST ROLES</p><h2 id="jobs-title">משרות פתוחות</h2></div>
