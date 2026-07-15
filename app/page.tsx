@@ -8,9 +8,13 @@ export default function Home() {
       <Header />
 
       <section className="talent-hero shell" aria-labelledby="hero-title">
-        <p className="eyebrow"><span /> EXTREME EXPERTS</p>
-        <h1 id="hero-title">העבודה הבאה שלך יכולה להתחיל <em>כאן.</em></h1>
-        <p>הזדמנויות טכנולוגיות עם אתגר אמיתי, צוותים מצוינים ומקום להשפיע.</p>
+        <p className="eyebrow"><span /> RECRUITING INTELLIGENCE NETWORK</p>
+        <h1 id="hero-title">Recruiting Intelligence שמחבר אנשים <em>להזדמנויות הנכונות.</em></h1>
+        <p>Data איכותי, מודלי AI ואוטומציה שמפחיתים רעש, משפרים התאמות ומקצרים את הדרך — לצוותי גיוס ולטאלנטים.</p>
+        <div className="talent-hero-actions">
+          <Link className="button hero-employer" href="/intake?track=talent">אני מגייסת <span>←</span></Link>
+          <Link className="button hero-talent" href="#experts">אני מחפש/ת הזדמנות <span>↓</span></Link>
+        </div>
       </section>
 
       <section className="jobs-section shell" id="experts" aria-labelledby="jobs-title">
