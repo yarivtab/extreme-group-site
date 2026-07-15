@@ -17,6 +17,17 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="network-steps" id="how-it-works" aria-labelledby="steps-title">
+        <div className="shell">
+          <div className="network-steps-head"><p className="kicker">HOW IT WORKS</p><h2 id="steps-title">שלושה צעדים לחיבור מדויק יותר.</h2></div>
+          <div className="network-step-grid">
+            <article><span>01</span><h3>משתפים צורך או פרופיל</h3><p>צוותי גיוס מגדירים תפקיד. טאלנטים משתפים ניסיון, יכולות והעדפות.</p></article>
+            <article><span>02</span><h3>ה־Intelligence עובד</h3><p>Data, מודלי AI ואוטומציה מזהים התאמות ומפחיתים רעש משני הצדדים.</p></article>
+            <article><span>03</span><h3>נפגשים ומתקדמים</h3><p>המגייסת והטאלנט מקבלים הקשר ברור וממשיכים להחלטה אנושית טובה יותר.</p></article>
+          </div>
+        </div>
+      </section>
+
       <section className="jobs-section shell" id="experts" aria-labelledby="jobs-title">
         <div className="jobs-title-row">
           <div><p className="kicker">LATEST ROLES</p><h2 id="jobs-title">משרות פתוחות</h2></div>
