@@ -21,8 +21,8 @@ export default function VisionPage() {
     <section className="vision-hero">
       <div className="shell">
         <p className="kicker">OUR VISION</p>
-        <h1>עולם עבודה שבו אנשים והזדמנויות<br /><em>מוצאים זה את זה טוב יותר.</em></h1>
-        <div className="vision-hero-copy"><p>החזון שלנו הוא להפוך את עולם הגיוס למדויק, מהיר ואנושי יותר — כך שכל ארגון יוכל להגיע לאנשים הנכונים, וכל אדם יוכל להגיע להזדמנות שבה יוכל להצליח.</p><span>AI‑NATIVE<br />HUMAN‑LED</span></div>
+        <h1>בונים את שכבת ה־Intelligence<br /><em>שמחברת אנשים להזדמנויות.</em></h1>
+        <div className="vision-hero-copy"><p>החזון שלנו הוא עולם עבודה מדויק, מהיר ואנושי יותר — שבו כל ארגון יכול להגיע לאנשים הנכונים, וכל אדם יכול להגיע להזדמנות שבה יוכל להצליח.</p><span>AI‑NATIVE<br />HUMAN‑LED</span></div>
       </div>
     </section>
 
@@ -41,6 +41,29 @@ export default function VisionPage() {
     <section className="vision-mission shell" aria-labelledby="mission-title">
       <div className="vision-mission-intro"><div><p className="kicker">OUR MISSION</p><h2 id="mission-title">לבנות Recruiting Intelligence Network שמקצר את הדרך בין צורך ארגוני לטאלנט המתאים.</h2></div><p>אנחנו משלבים Data איכותי, מודלי AI, אוטומציה ומומחיות אנושית כדי לייעל את כל שרשרת הגיוס — מהבנת הצורך ומיפוי השוק, דרך איתור והתאמה, ועד לקליטה ולהתקדמות מקצועית.</p></div>
       <div className="vision-pillars">{missionPillars.map((pillar) => <article key={pillar.number}><span>{pillar.number}</span><h3>{pillar.title}</h3><p>{pillar.text}</p></article>)}</div>
+    </section>
+
+    <section className="founder-story" aria-labelledby="founder-story-title">
+      <div className="shell founder-story-head"><p className="kicker">OUR FOUNDING STORY</p><h2 id="founder-story-title">למה הקמנו את Extreme —<br />ולמה אנחנו בונים אותה מחדש.</h2></div>
+      <div className="shell founder-path" aria-label="המסע של Extreme מחברת תוכנה ל־AI-Native Recruiting Intelligence">
+        <div><span>01</span><strong>Software</strong><small>פרויקטי פיתוח</small></div>
+        <i>←</i>
+        <div><span>02</span><strong>Talent</strong><small>מומחים טכנולוגיים</small></div>
+        <i>←</i>
+        <div><span>03</span><strong>Startups</strong><small>יזמות וניסיון מהשטח</small></div>
+        <i>←</i>
+        <div className="active"><span>04</span><strong>Intelligence</strong><small>Data · AI · Automation</small></div>
+      </div>
+      <div className="shell founder-story-body">
+        <article>
+          <p>Extreme הוקמה כחברת תוכנה שמחברת בין שני עולמות: היכולת לבנות ולהוציא לפועל פרויקטי פיתוח מורכבים, והיכולת לאתר ולגייס את האנשים הטכנולוגיים הנכונים כדי לגרום להם לקרות.</p>
+          <p>יזמות תמיד הייתה חלק מה־DNA שלנו. במהלך הדרך יצאנו, המייסדים, לתקופות שבהן הקמנו והובלנו חברות סטארט־אפ — ואז חזרנו ל־Extreme עם ניסיון חדש, נקודת מבט רחבה יותר והבנה עמוקה של האתגרים שאיתם מתמודדים ארגונים טכנולוגיים.</p>
+          <p>התפתחות ה־AI יצרה עבורנו רגע של הבנה: כדי ש־AI יהיה משמעותי, הוא זקוק ל־Data איכותי, להקשר מקצועי ולידע אנושי אמיתי. במשך שנים אנחנו עובדים עם מומחים בתעשייה, מלווים ארגונים ועוקבים אחר השינויים בשוק. הידע המצטבר וה־Data המקצועי שנבנה לאורך הדרך מאפשרים לנו לעזור ללקוחות לקבל החלטות טובות יותר לגבי הנכס החשוב ביותר שלהם — האנשים.</p>
+          <p>אנחנו לא מבקשים רק לשפר את תהליך הגיוס הקיים. אנחנו רוצים לבנות מחדש את הדרך שבה ארגונים ואנשים מוצאים זה את זה, מבינים התאמה ומתקדמים יחד.</p>
+          <div className="founder-signature"><strong>מייסד Extreme</strong><span>על החברה שאנחנו בונים עכשיו</span></div>
+        </article>
+        <aside><small>WHAT EXCITES US</small><blockquote>ה־AI הוא המנוע,<br />ה־Data הוא התשתית —<br /><em>אבל האנשים הם הסיבה שבגללה אנחנו בונים.</em></blockquote><p>מה שמרגש אותנו הוא החיבור בין חדשנות לבין תהליכים ותיקים שזקוקים לשינוי רדיקלי כדי להתאים לכלכלה המודרנית.</p></aside>
+      </div>
     </section>
 
     <section className="vision-belief">
