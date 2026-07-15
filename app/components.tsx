@@ -9,5 +9,18 @@ export function Header() {
 }
 
 export function Footer() {
-  return <footer><div className="shell footer-grid"><div><Link href="/" className="brand footer-brand"><img className="brand-logo" src="/extreme-logo.png" alt="Extreme" width="238" height="46" /></Link><p>אנשים מעולים. מערכות חכמות. פחות חיכוך.</p></div><div><strong>לארגונים</strong><Link href="/solutions">פתרונות</Link><Link href="/solutions#talent">גיוס טכנולוגי</Link><Link href="/solutions#technology">AI ואוטומציה</Link></div><div><strong>למועמדים</strong><Link href="/#careers">משרות פתוחות</Link><Link href="/intake?track=career">שליחת קורות חיים</Link></div><div><strong>בואו נדבר</strong><Link href="/intake">מרכז הפנייה</Link><a href="mailto:hello@extreme.co.il">hello@extreme.co.il</a></div></div><div className="shell footer-bottom"><span>© 2026 Extreme Group</span><span>תל אביב · ישראל</span></div></footer>;
+  return <footer className="extreme-footer">
+    <div className="shell footer-brand-row">
+      <Link href="/" className="brand footer-brand" aria-label="Extreme Group דף הבית"><img className="brand-logo" src="/extreme-logo.png" alt="Extreme" width="238" height="46" /></Link>
+      <p>Recruiting Intelligence שמחבר אנשים להזדמנויות הנכונות.</p>
+    </div>
+    <div className="shell footer-directory">
+      <div><strong>מומחים</strong><Link href="/#experts">משרות פתוחות</Link><Link href="/intake?track=career">הגשת מועמדות</Link></div>
+      <div><strong>ארגונים</strong><Link href="/solutions">פתרונות</Link><Link href="/solutions#talent">גיוס טכנולוגי</Link><Link href="/solutions#technology">AI ואוטומציה</Link></div>
+      <div><strong>תובנות</strong><Link href="/#research">מאמרים ותוכן</Link><Link href="/#research">סקרים ומגמות</Link></div>
+      <div><strong>Extreme</strong><Link href="/#vision">חזון</Link><Link href="/#coretado">Coretado</Link></div>
+      <div><strong>קשר</strong><Link href="/intake">מרכז הפנייה</Link><a href="mailto:hello@extreme.co.il">hello@extreme.co.il</a></div>
+    </div>
+    <div className="shell footer-legal"><span>© 2026 Extreme Group</span><span>תל אביב · ישראל</span></div>
+  </footer>;
 }
