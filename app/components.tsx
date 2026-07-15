@@ -10,8 +10,14 @@ export function Header() {
 
 export function Footer() {
   return <footer className="extreme-footer">
+    <div className="shell footer-feature">
+      <Link className="footer-story" href="/intake?track=career">
+        <img src="/exi-avatar.png" alt="אקסי, דמות ה-Recruiting Intelligence של Extreme" width="900" height="900" />
+        <div><small>MEET EXI</small><h2>הכירו את אקסי.</h2><p>הפנים של חוויית הגיוס החכמה שלנו — חיבור נעים ומדויק יותר בין אנשים להזדמנויות.</p><span>ספרו לנו מה אתם מחפשים ←</span></div>
+      </Link>
+    </div>
     <div className="shell footer-brand-row">
-      <div className="footer-brand-copy"><Link href="/" className="footer-wordmark" aria-label="Extreme Group דף הבית">EXTREME<span>.</span></Link><p>Recruiting Intelligence שמחבר אנשים להזדמנויות הנכונות.</p></div>
+      <p>Recruiting Intelligence שמחבר אנשים להזדמנויות הנכונות.</p>
       <div className="footer-socials" aria-label="עקבו אחרינו"><a href="https://www.linkedin.com/company/extreme-technologies" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://on.fb.me/1Fe92Pr" target="_blank" rel="noreferrer">Facebook ↗</a><a href="https://bit.ly/1D2IoVF" target="_blank" rel="noreferrer">Instagram ↗</a></div>
     </div>
     <div className="shell footer-directory">
