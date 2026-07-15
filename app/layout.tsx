@@ -27,10 +27,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const socialImage = `${protocol}://${host}/og.png`;
   return {
-    title: { default: "Extreme Group — Smart Tech + Talent", template: "%s | Extreme Group" },
-    description: "שותף טאלנט וטכנולוגיה לארגוני טכנולוגיה ופינטק — גיוס, צוותים ייעודיים ופרויקטי AI, אוטומציה ו־Data.",
-    openGraph: { title: "Extreme Group — Smart Tech + Talent", description: "Service as a Software לטאלנט וטכנולוגיה.", locale: "he_IL", type: "website", images: [{ url: socialImage, width: 1536, height: 1024 }] },
-    twitter: { card: "summary_large_image", title: "Extreme Group — Smart Tech + Talent", description: "Service as a Software לטאלנט וטכנולוגיה.", images: [socialImage] },
+    title: { default: "Extreme Group — אנשים וטכנולוגיה שעובדים", template: "%s | Extreme Group" },
+    description: "גיוס טכנולוגי ופרויקטי AI, אוטומציה ו־IT — מדויקים, מהירים ונוחים יותר.",
+    openGraph: { title: "Extreme Group — אנשים מעולים. מערכות חכמות.", description: "גיוס טכנולוגי ופרויקטי AI, אוטומציה ו־IT.", locale: "he_IL", type: "website", images: [{ url: socialImage, width: 1536, height: 1024 }] },
+    twitter: { card: "summary_large_image", title: "Extreme Group", description: "אנשים מעולים. מערכות חכמות. פחות חיכוך.", images: [socialImage] },
   };
 }
 
