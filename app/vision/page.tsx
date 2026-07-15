@@ -40,7 +40,7 @@ export default function VisionPage() {
     </section>
 
     <section className="founder-story" aria-labelledby="founder-story-title">
-      <div className="shell founder-story-head"><h2 id="founder-story-title">למה הקמנו את Extreme —<br />ולמה אנחנו בונים אותה מחדש.</h2><p className="kicker">OUR FOUNDING STORY</p></div>
+      <div className="shell founder-story-head"><h2 id="founder-story-title">למה הקמנו את Extreme —<br />ולמה אנחנו מכוונים אותה מחדש.</h2><p className="kicker">OUR FOUNDING STORY</p></div>
       <div className="shell founder-path" aria-label="המסע של Extreme מחברת תוכנה ל־AI-Native Recruiting Intelligence">
         <div><span>01</span><strong>Software</strong><small>פרויקטי פיתוח</small></div>
         <i>←</i>

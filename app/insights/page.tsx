@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Footer, Header } from "../components";
 
 const articles = [
-  { type: "קריירה וטאלנטים", title: "קורות החיים בעולם ה־AI — השינוי שכבר אי אפשר להתעלם ממנו", meta: "מאמר · 6 דקות" },
+  { type: "קריירה וטאלנטים", title: "קורות החיים בעולם ה־AI — השינוי שכבר אי אפשר להתעלם ממנו", meta: "מאמר · 6 דקות", image: "/insights-cv-ai.png" },
   { type: "Recruiting Intelligence", title: "מה מגייסות באמת צריכות מ־AI?", meta: "מאמר דעה · בקרוב" },
   { type: "קריירה וטאלנטים", title: "מדוע שנעסיק אותך? דרך טובה יותר לענות על השאלה", meta: "מדריך · 4 דקות" },
   { type: "Data ומחקר", title: "מסינון להתאמה: איך Data משנה את שרשרת הגיוס", meta: "מחקר · בקרוב" },
@@ -19,15 +19,15 @@ export default function InsightsPage() {
     </section>
 
     <section className="insight-feature shell" aria-label="מאמר מוביל">
-      <div className="insight-feature-art" aria-hidden="true"><span>01</span><b>HUMAN<br />× DATA</b><i /></div>
+      <div className="insight-feature-art insight-feature-image"><img src="/insights-feature-human-data.png" alt="מנהלת טאלנט ומועמד בשיחה המבוססת על תובנות Data" width="1448" height="1086" /><span aria-hidden="true">01</span></div>
       <div className="insight-feature-copy"><small>מאמר מוביל · RECRUITING INTELLIGENCE</small><h2>כשמועמדים, ארגונים ו־Data נפגשים — כל תהליך הגיוס נראה אחרת.</h2><p>לא עוד שכבת AI מעל תהליך ישן. מבט על הדרך שבה מידע איכותי, אוטומציה והחלטה אנושית מתחברים למערכת אחת.</p><span>7 דקות קריאה · מאמר חדש</span></div>
     </section>
 
     <section className="insight-feed shell" id="latest" aria-labelledby="latest-title">
       <div className="insight-feed-head"><div className="bilingual-head"><h2 id="latest-title">מה אנחנו חושבים עכשיו</h2><p className="kicker">LATEST THINKING</p></div><span>{articles.length} תכנים בסקיצה</span></div>
       <div className="insight-editorial-grid">
-        {articles.map((article, index) => <article className={`insight-entry entry-${index + 1}`} key={article.title}><small>{article.type}</small><h3>{article.title}</h3><p>{article.meta}</p><span aria-hidden="true">↗</span></article>)}
-        <article className="insight-entry insight-video"><small>VIDEO / בקרוב</small><div className="video-mark" aria-hidden="true">▶</div><h3>שיחה קצרה על AI, גיוס ומה עדיין חייב להישאר אנושי.</h3><p>וידאו · 08:40</p></article>
+        {articles.map((article, index) => <article className={`insight-entry entry-${index + 1}${article.image ? " has-image" : ""}`} key={article.title}>{article.image && <img className="insight-entry-image" src={article.image} alt="" width="1448" height="1086" />}<small>{article.type}</small><h3>{article.title}</h3><p>{article.meta}</p><span aria-hidden="true">↗</span></article>)}
+        <article className="insight-entry insight-video"><img className="insight-video-image" src="/insights-video-conversation.png" alt="שיחה מצולמת בין מנהלת משאבי אנוש למייסד טכנולוגי" width="1086" height="1448" /><small>VIDEO / בקרוב</small><div className="video-mark" aria-hidden="true">▶</div><h3>שיחה קצרה על AI, גיוס ומה עדיין חייב להישאר אנושי.</h3><p>וידאו · 08:40</p></article>
       </div>
     </section>
 
