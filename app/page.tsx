@@ -14,7 +14,7 @@ export default function Home() {
           <p>Data איכותי, מודלי AI ואוטומציה שמפחיתים רעש, משפרים התאמות ומקצרים את הדרך — לצוותי גיוס ולטאלנטים.</p>
           <div className="talent-hero-actions">
             <Link className="button hero-employer" href="/intake?track=talent">אני מגייסת <span>←</span></Link>
-            <Link className="button hero-talent" href="#experts">אני מחפש/ת הזדמנות <span>↓</span></Link>
+            <Link className="button hero-talent" href="/experts">אני מחפש/ת הזדמנות <span>←</span></Link>
           </div>
         </div>
       </section>
