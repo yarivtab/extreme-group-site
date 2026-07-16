@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer, Header } from "../components";
 
-export const metadata: Metadata = { title: "פתרונות לארגונים", description: "גיוס טכנולוגי ופרויקטי AI, אוטומציה ו־IT שמייצרים תוצאות עסקיות." };
+export const metadata: Metadata = { title: "פתרונות גיוס טכנולוגי לארגונים", description: "גיוס טכנולוגי, מומחים לפרויקטים ופתרונות AI ואוטומציה שמקצרים את הדרך מצורך עסקי לתוצאה.", alternates: { canonical: "/solutions" } };
 
 export default function SolutionsPage() {
   return <main><Header />

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer, Header } from "../../components";
@@ -7,13 +8,46 @@ export function generateStaticParams() {
   return jobs.map((job) => ({ slug: job.slug }));
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const job = jobs.find((item) => item.slug === slug);
+  if (!job) return {};
+
+  return {
+    title: `${job.title} — ${job.location}`,
+    description: `${job.summary} משרה ${job.workMode} ב${job.location}. לפרטים, דרישות והגשת מועמדות.`,
+    alternates: { canonical: `/jobs/${job.slug}` },
+    robots: job.isDemo ? { index: false, follow: true } : { index: true, follow: true },
+    openGraph: {
+      title: `${job.title} | Extreme Group`,
+      description: `${job.summary} ${job.location} · ${job.workMode}`,
+      type: "article",
+      url: `/jobs/${job.slug}`,
+    },
+  };
+}
+
 export default async function JobPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const job = jobs.find((item) => item.slug === slug);
   if (!job) notFound();
 
+  const jobPosting = !job.isDemo && job.datePosted ? {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    description: `<p>${job.summary}</p><h2>תחומי אחריות</h2><ul>${job.responsibilities.map((item) => `<li>${item}</li>`).join("")}</ul><h2>דרישות</h2><ul>${job.requirements.map((item) => `<li>${item}</li>`).join("")}</ul>`,
+    identifier: { "@type": "PropertyValue", name: "Extreme Group", value: job.externalId },
+    datePosted: job.datePosted,
+    ...(job.validThrough ? { validThrough: job.validThrough } : {}),
+    employmentType: "FULL_TIME",
+    hiringOrganization: { "@type": "Organization", name: "Extreme Group", sameAs: "https://www.extreme.co.il", logo: "https://www.extreme.co.il/extreme-logo.png" },
+    jobLocation: { "@type": "Place", address: { "@type": "PostalAddress", addressLocality: job.location, addressCountry: "IL" } },
+  } : null;
+
   return (
     <main className="job-page">
+      {jobPosting && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPosting).replace(/</g, "\\u003c") }} />}
       <Header />
       <article className="job-detail shell">
         <Link className="job-back" href="/experts#roles">→ חזרה לכל המשרות</Link>

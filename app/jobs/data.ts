@@ -1,4 +1,5 @@
 export type Job = {
+  isDemo: boolean;
   externalId: string;
   slug: string;
   title: string;
@@ -12,10 +13,13 @@ export type Job = {
   summary: string;
   responsibilities: string[];
   requirements: string[];
+  datePosted?: string;
+  validThrough?: string;
 };
 
 export const jobs: Job[] = [
   {
+    isDemo: true,
     externalId: "DEMO-1001",
     slug: "senior-full-stack-developer",
     title: "Senior Full‑Stack Developer",
@@ -30,6 +34,7 @@ export const jobs: Job[] = [
     requirements: ["ניסיון משמעותי ב־TypeScript וב־React", "ניסיון בפיתוח צד שרת ובמסדי נתונים", "יכולת הובלה ותקשורת מצוינת"],
   },
   {
+    isDemo: true,
     externalId: "DEMO-1002",
     slug: "ai-automation-lead",
     title: "AI Automation Lead",
@@ -44,6 +49,7 @@ export const jobs: Job[] = [
     requirements: ["ניסיון מעשי ב־LLMs ובאוטומציה", "היכרות עם APIs ואינטגרציות", "חשיבה עסקית ויכולת עבודה מול לקוחות"],
   },
   {
+    isDemo: true,
     externalId: "DEMO-1003",
     slug: "devops-engineer",
     title: "DevOps Engineer",
@@ -58,6 +64,7 @@ export const jobs: Job[] = [
     requirements: ["ניסיון ב־AWS או GCP", "ניסיון ב־Terraform וב־Kubernetes", "שליטה ב־Linux ובכתיבת סקריפטים"],
   },
   {
+    isDemo: true,
     externalId: "DEMO-1004",
     slug: "data-engineer",
     title: "Data Engineer",
@@ -72,6 +79,7 @@ export const jobs: Job[] = [
     requirements: ["ניסיון חזק ב־Python וב־SQL", "היכרות עם כלי orchestration ו־data warehouse", "הבנה של איכות נתונים וסקייל"],
   },
   {
+    isDemo: true,
     externalId: "DEMO-1005",
     slug: "cybersecurity-specialist",
     title: "Cybersecurity Specialist",
@@ -86,6 +94,7 @@ export const jobs: Job[] = [
     requirements: ["ניסיון באבטחת Cloud ואפליקציות", "היכרות עם תקנים ומתודולוגיות אבטחה", "יכולת חקירה וירידה לפרטים"],
   },
   {
+    isDemo: true,
     externalId: "DEMO-1006",
     slug: "technical-product-manager",
     title: "Technical Product Manager",

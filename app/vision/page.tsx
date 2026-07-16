@@ -5,6 +5,7 @@ import { Footer, Header } from "../components";
 export const metadata: Metadata = {
   title: "החזון שלנו",
   description: "החזון והמשימה של Extreme: לחבר אנשים, Data וטכנולוגיה כדי להפוך את הגיוס למדויק, מהיר ואנושי יותר.",
+  alternates: { canonical: "/vision" },
 };
 
 const missionPillars = [

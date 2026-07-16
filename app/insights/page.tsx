@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer, Header } from "../components";
 
@@ -38,3 +39,8 @@ export default function InsightsPage() {
     <Footer />
   </main>;
 }
+export const metadata: Metadata = {
+  title: "תובנות על גיוס, AI וקריירה",
+  description: "מאמרים מקוריים, מחקר וסקרים על Recruiting Intelligence, גיוס טכנולוגי, Data, AI וקריירה.",
+  alternates: { canonical: "/insights" },
+};

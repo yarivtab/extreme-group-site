@@ -7,6 +7,7 @@ import { JobsExplorer } from "./JobsExplorer";
 export const metadata: Metadata = {
   title: "מומחים ומשרות",
   description: "משרות טכנולוגיות, התאמה חכמה והזדמנויות מקצועיות למומחים של Extreme.",
+  alternates: { canonical: "/experts" },
 };
 
 const reasons = [

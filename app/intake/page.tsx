@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Header } from "../components";
 import { IntakeForm } from "./IntakeForm";
 
-export const metadata: Metadata = { title: "מרכז הפנייה", description: "ספרו לנו מה אתם צריכים — גיוס, פרויקט, פרופיל משרה, קורות חיים או שאלה." };
+export const metadata: Metadata = { title: "מרכז הפנייה", description: "ספרו לנו מה אתם צריכים — גיוס, פרויקט, פרופיל משרה, קורות חיים או שאלה.", robots: { index: false, follow: false } };
 
 export default async function IntakePage({ searchParams }: { searchParams: Promise<{ track?: string; role?: string; bonus?: string; jobId?: string }> }) {
   const { track, role, bonus, jobId } = await searchParams;
