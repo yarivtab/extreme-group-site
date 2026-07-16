@@ -37,6 +37,7 @@ export default function ExpertsPage() {
 
     <section className="experts-openings shell" id="roles" aria-labelledby="experts-jobs-title">
       <div className="experts-section-head"><div className="bilingual-head"><h2 id="experts-jobs-title">מצאו את התפקיד הבא.</h2><p className="kicker">OPEN OPPORTUNITIES</p></div><p>חפשו לפי תחום או מיקום, היכנסו למשרה והגישו מועמדות ישירות.</p></div>
+      <div className="jobs-demo-notice"><strong>DEMO DATA</strong><span>המשרות בעמוד הן נתוני דמה לבדיקת התבנית. הן יוחלפו אוטומטית במשרות ממערכת אדם לאחר החיבור.</span></div>
       <JobsExplorer jobs={jobs} />
     </section>
 
