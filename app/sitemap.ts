@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { jobs } from "./jobs/data";
 import { configuredSiteUrl } from "./seo";
+import { jobCategories } from "./jobs/categories";
+import { insights } from "./insights/data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = configuredSiteUrl();
@@ -15,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticPages.map((page) => ({ url: `${siteUrl}${page.path}`, lastModified: now, changeFrequency: page.changeFrequency, priority: page.priority })),
+    ...jobCategories.map((category) => ({ url: `${siteUrl}/jobs/category/${category.slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.75 })),
+    ...insights.filter((insight) => !insight.isDraft).map((insight) => ({ url: `${siteUrl}/insights/${insight.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 })),
     ...jobs.filter((job) => !job.isDemo).map((job) => ({ url: `${siteUrl}/jobs/${job.slug}`, lastModified: job.datePosted ? new Date(job.datePosted) : now, changeFrequency: "daily" as const, priority: 0.8 })),
   ];
 }
