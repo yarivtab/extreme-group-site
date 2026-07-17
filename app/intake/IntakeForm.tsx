@@ -32,7 +32,7 @@ export function IntakeForm({ initialTrack, role, bonus, jobId }: { initialTrack?
       <label className="full">LinkedIn או קישור מקצועי<input type="url" name="candidateLinkedin" placeholder="https://linkedin.com/in/..." /></label>
       <label className="full">למה זו התאמה טובה?<textarea name="message" required placeholder="כמה מילים על הניסיון, הקשר שלכם וההתאמה לתפקיד." /></label>
       <label className="full upload-box">צירוף קורות החיים של המועמד/ת<input type="file" name="file" accept=".pdf,.doc,.docx" /></label>
-      <label className="full referral-consent"><input type="checkbox" name="consent" required /><span>אני מאשר/ת שהמועמד/ת יודע/ת ומסכים/ה להעברת הפרטים ל־Extreme לצורך בחינת ההתאמה.</span></label>
+      <label className="full referral-consent"><input type="checkbox" name="consent" required /><span>אני מאשר/ת שהמועמד/ת יודע/ת ומסכים/ה להעברת הפרטים ל־Extreme לצורך בחינת ההתאמה, בהתאם ל<Link href="/privacy">מדיניות הפרטיות</Link>.</span></label>
       <p className="form-note full">הזכאות למענק כפופה לתנאי תוכנית ההפניות, לזיהוי הממליץ הראשון ולקליטת המועמד/ת.</p>
       <button className="button primary full" type="submit">שליחת המלצה <span>←</span></button>
     </div> : isCareer ? <div className="form-grid career-application-grid">
@@ -45,7 +45,7 @@ export function IntakeForm({ initialTrack, role, bonus, jobId }: { initialTrack?
       <label className="full">LinkedIn או קישור מקצועי<input type="url" name="linkedin" placeholder="https://linkedin.com/in/..." /></label>
       <label className="full">כמה מילים עליכם<textarea name="message" placeholder="ניסיון רלוונטי, כיוון מקצועי או מידע שחשוב שנכיר." /></label>
       <label className="full upload-box">צירוף קורות חיים<input type="file" name="file" accept=".pdf,.doc,.docx" required /></label>
-      <label className="full referral-consent"><input type="checkbox" name="consent" required /><span>אני מאשר/ת ל־Extreme להשתמש בפרטים לצורך בחינת התאמה למשרה ולהזדמנויות מקצועיות רלוונטיות.</span></label>
+      <label className="full referral-consent"><input type="checkbox" name="consent" required /><span>אני מאשר/ת ל־Extreme להשתמש בפרטים לצורך בחינת התאמה למשרה ולהזדמנויות מקצועיות רלוונטיות, בהתאם ל<Link href="/privacy">מדיניות הפרטיות</Link>.</span></label>
       <p className="form-note full">בדמו הקובץ נבדק בצד הדפדפן בלבד ואינו מועלה לשרת.</p>
       <button className="button primary full" type="submit">בדיקת הגשת מועמדות <span>←</span></button>
     </div> : <div className="form-grid">
@@ -55,7 +55,7 @@ export function IntakeForm({ initialTrack, role, bonus, jobId }: { initialTrack?
       <label>טלפון<input type="tel" name="phone" placeholder="050-0000000" autoComplete="tel" /></label>
       <label className="full">מה תרצו להשיג?<textarea name="message" required placeholder="כמה מילים על הצורך, התפקיד או הפרויקט יעזרו לנו לחבר את האדם הנכון לשיחה." /></label>
       <label className="full upload-box">אפשר לצרף קורות חיים או בריף<input type="file" name="file" accept=".pdf,.doc,.docx" /></label>
-      <p className="form-note full">בשליחת הטופס אתם מאשרים לנו לחזור אליכם לגבי הפנייה. אנחנו משתמשים בפרטים רק כדי לטפל בה.</p>
+      <p className="form-note full">בשליחת הטופס אתם מאשרים לנו לחזור אליכם לגבי הפנייה. אנחנו משתמשים בפרטים רק כדי לטפל בה, בהתאם ל<Link href="/privacy">מדיניות הפרטיות</Link>.</p>
       <button className="button primary full" type="submit">שלחו פנייה <span>←</span></button>
     </div>}
   </form>;

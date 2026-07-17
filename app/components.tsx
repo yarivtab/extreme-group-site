@@ -24,6 +24,6 @@ export function Footer() {
       <div><strong>Extreme</strong><Link href="/vision">חזון</Link><Link href="/#coretado">Coretado</Link></div>
       <div><strong>קשר</strong><Link href="/intake">מרכז הפנייה</Link><a href="mailto:hello@extreme.co.il">hello@extreme.co.il</a></div>
     </div>
-    <div className="shell footer-legal"><span>© 2026 Extreme Group</span><span>תל אביב · ישראל</span></div>
+    <div className="shell footer-legal"><span>© 2026 Extreme Group</span><Link href="/privacy">מדיניות פרטיות</Link><span>תל אביב · ישראל</span></div>
   </footer>;
 }
