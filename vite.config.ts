@@ -14,6 +14,11 @@ const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
 const localBindingConfig = {
   main: "./worker/index.ts",
   compatibility_flags: ["nodejs_compat"],
+  vars: {
+    ADAM_COMPANY_TOKEN: process.env.ADAM_COMPANY_TOKEN ?? "",
+    ADAM_SYNC_SECRET: process.env.ADAM_SYNC_SECRET ?? "",
+    ADAM_API_BASE_URL: process.env.ADAM_API_BASE_URL ?? "https://services.adamtotal.co.il/api/Career",
+  },
   d1_databases: d1
     ? [
         {

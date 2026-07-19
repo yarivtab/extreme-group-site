@@ -1,0 +1,1 @@
+CREATE INDEX `adam_jobs_active_idx` ON `adam_jobs` (`is_active`,`profession`,`location`);
