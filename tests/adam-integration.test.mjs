@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { createEditorialProjection } from "../lib/job-editorial.ts";
 
 const read = (path) => readFile(new URL(path, import.meta.url), "utf8");
 
@@ -24,21 +25,80 @@ test("keeps Adam credentials server-side and protects synchronization", async ()
 });
 
 test("publishes only the approved public job projection", async () => {
-  const [adapter, database, qaPage, publicJobsPage, homePage] = await Promise.all([
+  const [adapter, database, qaPage, publicJobsPage, publicJobsExplorer, homePage, jobPage, jobPreview] = await Promise.all([
     read("../lib/adam.ts"),
     read("../lib/adam-db.ts"),
     read("../app/qa/adam/page.tsx"),
     read("../app/experts/page.tsx"),
+    read("../app/experts/JobsExplorer.tsx"),
     read("../app/page.tsx"),
+    read("../app/jobs/[slug]/page.tsx"),
+    read("../app/jobs/[slug]/opengraph-image.tsx"),
   ]);
 
   assert.match(adapter, /descriptionText/);
   assert.match(adapter, /profession_name/);
   assert.match(adapter, /order_def_area_name1/);
+  assert.match(database, /adam_job_publications/);
+  assert.match(database, /public_title/);
   assert.doesNotMatch(database, /email_rakaz|email_snif|telefon|perot_tafked/);
   assert.match(qaPage, /index: false, follow: false/);
   assert.match(qaPage, /readAdamJobs/);
   assert.match(publicJobsPage, /readAdamJobs/);
+  assert.match(publicJobsPage, /PublicJobCard/);
+  assert.doesNotMatch(publicJobsPage, /sourceTitle:\s*job\.sourceTitle|sourceDescriptionText:\s*job\.sourceDescriptionText/);
+  assert.match(publicJobsExplorer, /pageSize = 12/);
+  assert.match(publicJobsExplorer, /experts-load-more/);
   assert.match(homePage, /readAdamJobs/);
+  assert.match(jobPage, /summary_large_image/);
+  assert.match(jobPreview, /readAdamJobBySlug/);
+  assert.match(jobPreview, /OPEN POSITION/);
+  assert.match(jobPreview, /jobNumber/);
   assert.doesNotMatch(`${publicJobsPage}\n${homePage}`, /DEMO DATA/);
+});
+
+test("responsible publisher removes recruitment language and job numbers", () => {
+  const projection = createEditorialProjection({
+    id: 23651,
+    slug: "full-stack-23651",
+    title: "דרוש/ה מפתח/ת Full Stack - מספר משרה 23651",
+    profession: "פיתוח",
+    subprofession: "Full Stack",
+    location: "תל אביב",
+    areas: ["מרכז"],
+    jobScope: "משרה מלאה",
+    descriptionText: "דרוש/ה מפתח/ת Full Stack - מספר משרה 23651\nבניית מערכות Web מורכבות.\nבניית מערכות Web מורכבות.",
+    requirementsText: "3 שנות ניסיון",
+    publishedAt: null,
+    closesAt: null,
+    sourceUpdatedAt: null,
+    referralReward: 0,
+  });
+
+  assert.equal(projection.publicTitle, "מפתח/ת Full Stack");
+  assert.equal(projection.publicSummary, "בניית מערכות Web מורכבות.");
+  assert.equal(projection.publicDescription, "בניית מערכות Web מורכבות.");
+  assert.equal(projection.status, "auto_published");
+  assert.doesNotMatch(projection.publicTitle, /דרוש|23651|מספר משרה/);
+
+  const genericCampaign = createEditorialProjection({
+    ...projection,
+    id: 23045,
+    slug: "it-23045",
+    title: "מחפשים את ההזדמנות הבאה שלכם בעולם ה-IT ?",
+    profession: "אחר",
+    subprofession: "",
+    location: "",
+    areas: [],
+    jobScope: "",
+    descriptionText: "Help Desk Support, NOC Engineer, System Administrator",
+    requirementsText: "0",
+    publishedAt: null,
+    closesAt: null,
+    sourceUpdatedAt: null,
+    referralReward: 0,
+  });
+  assert.equal(genericCampaign.publicTitle, "משרות תמיכה ותשתיות IT");
+  assert.match(genericCampaign.publicSummary, /Help Desk, NOC, System, Cloud/);
+  assert.equal(genericCampaign.publicRequirements, "");
 });

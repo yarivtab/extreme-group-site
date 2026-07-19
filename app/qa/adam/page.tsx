@@ -18,7 +18,7 @@ export default async function AdamQaPage() {
     <section className="shell adam-qa-hero">
       <p className="kicker">PRIVATE QA / ADAM SYNC</p>
       <h1>משרות מסונכרנות<br />מ־Adam.</h1>
-      <p>מסלול בדיקה מבודד. הנתונים נשמרים במסד המקומי והחיפוש מתבצע באתר Extreme.</p>
+      <p>השוואה בין נתוני המקור של המגייסת לבין שכבת הפרסום האוטומטית שמוצגת באתר Extreme.</p>
       <div className="adam-qa-status"><strong>{jobs.length} משרות פעילות</strong><span>{lastSync ? `סנכרון אחרון: ${new Date(lastSync).toLocaleString("he-IL")}` : "טרם בוצע סנכרון"}</span></div>
     </section>
     <section className="shell adam-qa-content">

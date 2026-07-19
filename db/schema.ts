@@ -23,3 +23,17 @@ export const adamSyncState = sqliteTable("adam_sync_state", {
   key: text("key").primaryKey(),
   value: text("value").notNull(),
 });
+
+export const adamJobPublications = sqliteTable("adam_job_publications", {
+  jobId: integer("job_id").primaryKey().references(() => adamJobs.id, { onDelete: "cascade" }),
+  sourceFingerprint: text("source_fingerprint").notNull(),
+  publicTitle: text("public_title").notNull(),
+  publicSummary: text("public_summary").notNull().default(""),
+  publicDescription: text("public_description").notNull().default(""),
+  publicRequirements: text("public_requirements").notNull().default(""),
+  editorialStatus: text("editorial_status").notNull().default("auto_published"),
+  confidence: integer("confidence").notNull().default(100),
+  flagsJson: text("flags_json").notNull().default("[]"),
+  engineVersion: text("engine_version").notNull(),
+  generatedAt: text("generated_at").notNull(),
+}, (table) => [index("adam_job_publications_status_idx").on(table.editorialStatus, table.confidence)]);

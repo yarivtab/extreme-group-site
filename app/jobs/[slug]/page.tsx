@@ -11,16 +11,19 @@ function blocks(value: string) {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const job = await readAdamJobBySlug((await params).slug);
+  const { slug } = await params;
+  const job = await readAdamJobBySlug(slug);
   if (!job) return {};
   const location = job.location || job.areas.join(" · ") || "ישראל";
-  const description = (job.descriptionText || `${job.profession} ב־${location}`).slice(0, 155);
+  const description = (job.publicSummary || job.descriptionText || `${job.profession} ב־${location}`).slice(0, 155);
+  const socialTitle = `${job.title} — ${location}`;
   return {
-    title: `${job.title} — ${location}`,
+    title: socialTitle,
     description,
     alternates: { canonical: `/jobs/${job.slug}` },
     robots: { index: true, follow: true },
-    openGraph: { title: `${job.title} | Extreme Group`, description, type: "article", url: `/jobs/${job.slug}` },
+    openGraph: { title: socialTitle, description, type: "article", url: `/jobs/${job.slug}`, siteName: "Extreme Group", locale: "he_IL" },
+    twitter: { card: "summary_large_image", title: socialTitle, description },
   };
 }
 

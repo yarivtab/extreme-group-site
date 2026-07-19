@@ -28,8 +28,21 @@ export function AdamJobsExplorer({ jobs }: { jobs: StoredAdamJob[] }) {
     <p className="adam-qa-count">{filtered.length} מתוך {jobs.length} משרות</p>
     <div className="adam-qa-list">
       {filtered.map((job) => <article key={job.id}>
-        <div><span>ADAM #{job.id}</span><h2>{job.title}</h2><p>{[job.profession, job.location, job.jobScope].filter(Boolean).join(" · ")}</p></div>
-        <details><summary>פרטי המשרה <span>+</span></summary><div className="adam-qa-description">{job.descriptionText || "לא התקבל תיאור ציבורי."}</div>{job.requirementsText && <div className="adam-qa-requirements"><strong>דרישות נוספות</strong>{job.requirementsText}</div>}</details>
+        <div>
+          <div className="adam-editorial-state"><span>{job.editorialStatus === "auto_published" ? "פורסם אוטומטית" : "פורסם עם סימון לבדיקה"}</span><small>ביטחון {job.editorialConfidence}%</small></div>
+          <span>ADAM #{job.id}</span><h2>{job.title}</h2>
+          {job.sourceTitle !== job.title && <p className="adam-source-title"><strong>כותרת מקור:</strong> {job.sourceTitle}</p>}
+          <p>{[job.profession, job.location, job.jobScope].filter(Boolean).join(" · ")}</p>
+        </div>
+        <details><summary>מקור מול פרסום <span>+</span></summary>
+          <div className="adam-editorial-comparison">
+            <section><small>PUBLIC SUMMARY</small><strong>{job.publicSummary || "לא נוצר תקציר."}</strong></section>
+            <section><small>PUBLIC DESCRIPTION</small><div>{job.descriptionText || "לא התקבל תיאור ציבורי."}</div></section>
+            <section><small>SOURCE DESCRIPTION</small><div>{job.sourceDescriptionText || "לא התקבל תיאור מקור."}</div></section>
+          </div>
+          {job.requirementsText && <div className="adam-qa-requirements"><strong>דרישות שפורסמו</strong>{job.requirementsText}</div>}
+          {job.editorialFlags.length > 0 && <div className="adam-editorial-flags">{job.editorialFlags.map((flag) => <span key={flag}>{flag}</span>)}</div>}
+        </details>
       </article>)}
     </div>
   </>;

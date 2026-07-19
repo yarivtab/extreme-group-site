@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer, Header } from "../components";
 import { readAdamJobs } from "../../lib/adam-db";
-import { JobsExplorer } from "./JobsExplorer";
+import { JobsExplorer, type PublicJobCard } from "./JobsExplorer";
 
 export const metadata: Metadata = {
   title: "מומחים ומשרות",
@@ -20,6 +20,18 @@ export const dynamic = "force-dynamic";
 
 export default async function ExpertsPage() {
   const jobs = await readAdamJobs();
+  const publicJobs: PublicJobCard[] = jobs.map((job) => ({
+    slug: job.slug,
+    title: job.title,
+    profession: job.profession,
+    subprofession: job.subprofession,
+    location: job.location,
+    areas: job.areas,
+    jobScope: job.jobScope,
+    publicSummary: job.publicSummary,
+    descriptionText: job.descriptionText,
+    referralReward: job.referralReward,
+  }));
   return <main className="experts-page">
     <Header />
 
@@ -41,7 +53,7 @@ export default async function ExpertsPage() {
 
     <section className="experts-openings shell" id="roles" aria-labelledby="experts-jobs-title">
       <div className="experts-section-head"><div className="bilingual-head"><h2 id="experts-jobs-title">מצאו את התפקיד הבא.</h2><p className="kicker">OPEN OPPORTUNITIES</p></div><p>חפשו לפי תחום או מיקום והיכנסו לפרטים המלאים של כל משרה.</p></div>
-      {jobs.length ? <JobsExplorer jobs={jobs} /> : <div className="experts-empty"><h3>אין כרגע משרות פעילות להצגה.</h3><p>אפשר להעלות קורות חיים ואנחנו נחפש את החיבור הנכון עבורכם.</p></div>}
+      {publicJobs.length ? <JobsExplorer jobs={publicJobs} /> : <div className="experts-empty"><h3>אין כרגע משרות פעילות להצגה.</h3><p>אפשר להעלות קורות חיים ואנחנו נחפש את החיבור הנכון עבורכם.</p></div>}
     </section>
 
     <section className="experts-why" aria-labelledby="experts-why-title">
