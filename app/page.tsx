@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { Footer, Header } from "./components";
-import { jobs } from "./jobs/data";
+import { readAdamJobs } from "../lib/adam-db";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const allJobs = await readAdamJobs();
+  const jobs = allJobs.slice(0, 6);
   return (
     <main className="talent-home">
       <Header />
@@ -46,18 +50,19 @@ export default function Home() {
       <section className="jobs-section shell" id="experts" aria-labelledby="jobs-title">
         <div className="jobs-title-row">
           <div className="bilingual-head"><h2 id="jobs-title">משרות פתוחות</h2><p className="kicker">LATEST ROLES</p></div>
-          <span>{jobs.length} תפקידים נבחרים</span>
+          <span>{allJobs.length} משרות פעילות</span>
         </div>
         <div className="job-card-grid">
           {jobs.map((job) => (
             <Link className="role-card" href={`/jobs/${job.slug}`} key={job.slug}>
-              <div className="role-card-top"><span>{job.field}</span><small>{job.type}</small></div>
+              <div className="role-card-top"><span>{job.profession || "טכנולוגיה"}</span><small>{job.jobScope || "משרה פתוחה"}</small></div>
               <h3>{job.title}</h3>
-              <p>{job.location} · {job.workMode}</p>
-              <div className="role-card-bottom"><span>{job.experience}</span><b>לפרטים והגשת מועמדות ←</b></div>
+              <p>{job.location || job.areas.join(" · ") || "ישראל"}</p>
+              <div className="role-card-bottom"><span>{job.subprofession || job.profession}</span><b>לפרטים ←</b></div>
             </Link>
           ))}
         </div>
+        {allJobs.length > jobs.length && <div className="jobs-note"><p>רוצים לראות את כל המשרות?</p><Link href="/experts#roles">לכל {allJobs.length} המשרות <span>←</span></Link></div>}
         <div className="jobs-note">
           <p>לא מצאתם תפקיד מדויק?</p>
           <Link href="/intake?track=career">שלחו קורות חיים ונכיר <span>←</span></Link>

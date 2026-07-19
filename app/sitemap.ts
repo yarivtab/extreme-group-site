@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next";
-import { jobs } from "./jobs/data";
+import { readAdamJobs } from "../lib/adam-db";
 import { configuredSiteUrl } from "./seo";
 import { jobCategories } from "./jobs/categories";
 import { insights } from "./insights/data";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = configuredSiteUrl();
   const now = new Date();
+  const jobs = await readAdamJobs();
   const staticPages = [
     { path: "", priority: 1, changeFrequency: "weekly" as const },
     { path: "/experts", priority: 0.9, changeFrequency: "daily" as const },
@@ -20,6 +21,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticPages.map((page) => ({ url: `${siteUrl}${page.path}`, lastModified: now, changeFrequency: page.changeFrequency, priority: page.priority })),
     ...jobCategories.map((category) => ({ url: `${siteUrl}/jobs/category/${category.slug}`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.75 })),
     ...insights.filter((insight) => !insight.isDraft).map((insight) => ({ url: `${siteUrl}/insights/${insight.slug}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 })),
-    ...jobs.filter((job) => !job.isDemo).map((job) => ({ url: `${siteUrl}/jobs/${job.slug}`, lastModified: job.datePosted ? new Date(job.datePosted) : now, changeFrequency: "daily" as const, priority: 0.8 })),
+    ...jobs.map((job) => ({ url: `${siteUrl}/jobs/${job.slug}`, lastModified: job.sourceUpdatedAt ? new Date(job.sourceUpdatedAt) : job.publishedAt ? new Date(job.publishedAt) : now, changeFrequency: "daily" as const, priority: 0.8 })),
   ];
 }

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer, Header } from "../components";
-import { jobs } from "../jobs/data";
+import { readAdamJobs } from "../../lib/adam-db";
 import { JobsExplorer } from "./JobsExplorer";
-import { jobCategories } from "../jobs/categories";
 
 export const metadata: Metadata = {
   title: "מומחים ומשרות",
@@ -17,7 +16,10 @@ const reasons = [
   { number: "03", title: "קלות העסקה", text: "תהליך פשוט, ליווי ברור ופחות התעסקות מסביב — כדי שתוכלו להתמקד בעבודה, בצוות ובהתקדמות המקצועית." },
 ];
 
-export default function ExpertsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ExpertsPage() {
+  const jobs = await readAdamJobs();
   return <main className="experts-page">
     <Header />
 
@@ -38,10 +40,8 @@ export default function ExpertsPage() {
     </section>
 
     <section className="experts-openings shell" id="roles" aria-labelledby="experts-jobs-title">
-      <div className="experts-section-head"><div className="bilingual-head"><h2 id="experts-jobs-title">מצאו את התפקיד הבא.</h2><p className="kicker">OPEN OPPORTUNITIES</p></div><p>חפשו לפי תחום או מיקום, היכנסו למשרה והגישו מועמדות ישירות.</p></div>
-      <div className="jobs-demo-notice"><strong>DEMO DATA</strong><span>המשרות בעמוד הן נתוני דמה לבדיקת התבנית. הן יוחלפו אוטומטית במשרות ממערכת אדם לאחר החיבור.</span></div>
-      <nav className="job-category-links" aria-label="משרות לפי תחום">{jobCategories.map((category) => <Link href={`/jobs/category/${category.slug}`} key={category.slug}>{category.label}</Link>)}</nav>
-      <JobsExplorer jobs={jobs} />
+      <div className="experts-section-head"><div className="bilingual-head"><h2 id="experts-jobs-title">מצאו את התפקיד הבא.</h2><p className="kicker">OPEN OPPORTUNITIES</p></div><p>חפשו לפי תחום או מיקום והיכנסו לפרטים המלאים של כל משרה.</p></div>
+      {jobs.length ? <JobsExplorer jobs={jobs} /> : <div className="experts-empty"><h3>אין כרגע משרות פעילות להצגה.</h3><p>אפשר להעלות קורות חיים ואנחנו נחפש את החיבור הנכון עבורכם.</p></div>}
     </section>
 
     <section className="experts-why" aria-labelledby="experts-why-title">

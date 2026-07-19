@@ -24,10 +24,12 @@ test("keeps Adam credentials server-side and protects synchronization", async ()
 });
 
 test("publishes only the approved public job projection", async () => {
-  const [adapter, database, qaPage] = await Promise.all([
+  const [adapter, database, qaPage, publicJobsPage, homePage] = await Promise.all([
     read("../lib/adam.ts"),
     read("../lib/adam-db.ts"),
     read("../app/qa/adam/page.tsx"),
+    read("../app/experts/page.tsx"),
+    read("../app/page.tsx"),
   ]);
 
   assert.match(adapter, /descriptionText/);
@@ -36,4 +38,7 @@ test("publishes only the approved public job projection", async () => {
   assert.doesNotMatch(database, /email_rakaz|email_snif|telefon|perot_tafked/);
   assert.match(qaPage, /index: false, follow: false/);
   assert.match(qaPage, /readAdamJobs/);
+  assert.match(publicJobsPage, /readAdamJobs/);
+  assert.match(homePage, /readAdamJobs/);
+  assert.doesNotMatch(`${publicJobsPage}\n${homePage}`, /DEMO DATA/);
 });

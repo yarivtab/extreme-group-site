@@ -104,3 +104,31 @@ export async function readAdamJobs() {
     syncedAt: String(row.synced_at),
   } satisfies StoredAdamJob));
 }
+
+export async function readAdamJobBySlug(slug: string) {
+  await ensureAdamSchema();
+  const row = await env.DB.prepare(`SELECT
+    id, slug, title, profession, subprofession, location, areas_json, job_scope,
+    description_text, requirements_text, published_at, closes_at, source_updated_at,
+    referral_reward, synced_at
+    FROM adam_jobs WHERE is_active = 1 AND slug = ? LIMIT 1`).bind(slug).first();
+
+  if (!row) return null;
+  return {
+    id: Number(row.id),
+    slug: String(row.slug),
+    title: String(row.title),
+    profession: String(row.profession || ""),
+    subprofession: String(row.subprofession || ""),
+    location: String(row.location || ""),
+    areas: JSON.parse(String(row.areas_json || "[]")) as string[],
+    jobScope: String(row.job_scope || ""),
+    descriptionText: String(row.description_text || ""),
+    requirementsText: String(row.requirements_text || ""),
+    publishedAt: row.published_at ? String(row.published_at) : null,
+    closesAt: row.closes_at ? String(row.closes_at) : null,
+    sourceUpdatedAt: row.source_updated_at ? String(row.source_updated_at) : null,
+    referralReward: Number(row.referral_reward || 0),
+    syncedAt: String(row.synced_at),
+  } satisfies StoredAdamJob;
+}
