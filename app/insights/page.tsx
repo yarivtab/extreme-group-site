@@ -24,7 +24,7 @@ export default function InsightsPage() {
     </section>
 
     <section className="insight-feed shell" id="latest" aria-labelledby="latest-title">
-      <div className="insight-feed-head"><div className="bilingual-head"><h2 id="latest-title">מה אנחנו חושבים עכשיו</h2><p className="kicker">LATEST THINKING</p></div><span>{articles.length} תכנים בסקיצה</span></div>
+      <div className="insight-feed-head"><div className="bilingual-head"><h2 id="latest-title">מה אנחנו חושבים עכשיו</h2><p className="kicker">LATEST THINKING</p></div><span>{articles.length} מאמרים ותכנים</span></div>
       <div className="insight-editorial-grid">
         {articles.map((article, index) => "slug" in article ? <Link href={`/insights/${article.slug}`} className={`insight-entry entry-${index + 1}${article.image ? " has-image" : ""}`} key={article.title}>{article.image && <img className="insight-entry-image" src={article.image} alt="" width="1448" height="1086" />}<small>{article.type}</small><h3>{article.title}</h3><p>{article.meta}</p><span aria-hidden="true">↗</span></Link> : <article className={`insight-entry entry-${index + 1}`} key={article.title}><small>{article.type}</small><h3>{article.title}</h3><p>{article.meta}</p><span aria-hidden="true">בקרוב</span></article>)}
         <article className="insight-entry insight-video"><img className="insight-video-image" src="/insights-video-conversation.png" alt="שיחה מצולמת בין מנהלת משאבי אנוש למייסד טכנולוגי" width="1086" height="1448" /><small>VIDEO / בקרוב</small><div className="video-mark" aria-hidden="true">▶</div><h3>שיחה קצרה על AI, גיוס ומה עדיין חייב להישאר אנושי.</h3><p>וידאו · 08:40</p></article>
