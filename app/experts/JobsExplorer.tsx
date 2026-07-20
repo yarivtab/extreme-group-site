@@ -13,7 +13,8 @@ export type PublicJobCard = {
   jobScope: string;
   publicSummary: string;
   descriptionText: string;
-  referralReward: number;
+  daysOpen: number;
+  workArrangement: "היברידי" | "לא היברידי" | "מודל עבודה לא צוין";
 };
 
 const all = "הכול";
@@ -23,6 +24,12 @@ function excerpt(value: string) {
   const compact = value.replace(/\s+/g, " ").trim();
   if (!compact) return "היכנסו לפרטי המשרה המלאים ולדרישות התפקיד.";
   return compact.length > 170 ? `${compact.slice(0, 167).trim()}…` : compact;
+}
+
+function publishedLabel(days: number) {
+  if (days === 0) return "פורסם היום";
+  if (days === 1) return "פורסם אתמול";
+  return `פורסם לפני ${days} ימים`;
 }
 
 export function JobsExplorer({ jobs }: { jobs: PublicJobCard[] }) {
@@ -59,7 +66,7 @@ export function JobsExplorer({ jobs }: { jobs: PublicJobCard[] }) {
     {filteredJobs.length > 0 ? <div className="experts-job-list">
       {visibleJobs.map((job) => <Link href={`/jobs/${job.slug}`} className="experts-job-row" key={job.slug}>
         <div className="experts-job-copy"><small>{job.profession || "משרה פתוחה"}</small><h3>{job.title}</h3><p>{job.publicSummary || excerpt(job.descriptionText || job.subprofession)}</p></div>
-        <div className="experts-job-meta"><span>{job.location || job.areas.join(" · ") || "ישראל"}</span>{job.jobScope && <span>{job.jobScope}</span>}{job.subprofession && <span>{job.subprofession}</span>}{job.referralReward > 0 && <span className="referral-tag">Referral · ₪{job.referralReward.toLocaleString("he-IL")}</span>}</div>
+        <div className="experts-job-meta"><span>{job.location || job.areas.join(" · ") || "ישראל"}</span><span>{publishedLabel(job.daysOpen)}</span><span>{job.workArrangement}</span></div>
         <div className="experts-job-link"><span>לפרטי המשרה</span><b aria-hidden="true">←</b></div>
       </Link>)}
       {visibleCount < filteredJobs.length && <button className="experts-load-more" type="button" onClick={() => setVisibleCount((count) => count + pageSize)}>הציגו עוד משרות <span>+{Math.min(pageSize, filteredJobs.length - visibleCount)}</span></button>}

@@ -16,6 +16,18 @@ const reasons = [
   { number: "03", title: "קלות העסקה", text: "תהליך פשוט, ליווי ברור ופחות התעסקות מסביב — כדי שתוכלו להתמקד בעבודה, בצוות ובהתקדמות המקצועית." },
 ];
 
+function daysSincePublished(value: string | null) {
+  if (!value) return 0;
+  const published = new Date(`${value}T00:00:00Z`).getTime();
+  return Math.max(0, Math.floor((Date.now() - published) / 86_400_000));
+}
+
+function workArrangement(description: string): PublicJobCard["workArrangement"] {
+  if (/לא\s+היבריד|ללא\s+היבריד|עבודה\s+(?:רק\s+)?מהמשרד|עבודה\s+באתר|on[ -]?site|פרונטלי/i.test(description)) return "לא היברידי";
+  if (/היבריד|עבודה\s+מהבית|יומ(?:יים|ים|י)\s+מהבית|יום\s+מהבית|עבודה\s+מרחוק|remote/i.test(description)) return "היברידי";
+  return "מודל עבודה לא צוין";
+}
+
 export const dynamic = "force-dynamic";
 
 export default async function ExpertsPage() {
@@ -30,7 +42,8 @@ export default async function ExpertsPage() {
     jobScope: job.jobScope,
     publicSummary: job.publicSummary,
     descriptionText: job.descriptionText,
-    referralReward: job.referralReward,
+    daysOpen: daysSincePublished(job.publishedAt),
+    workArrangement: workArrangement(job.descriptionText),
   }));
   return <main className="experts-page">
     <Header />

@@ -46,9 +46,12 @@ test("publishes only the approved public job projection", async () => {
   assert.match(qaPage, /readAdamJobs/);
   assert.match(publicJobsPage, /readAdamJobs/);
   assert.match(publicJobsPage, /PublicJobCard/);
+  assert.match(publicJobsPage, /daysSincePublished/);
+  assert.match(publicJobsPage, /workArrangement/);
   assert.doesNotMatch(publicJobsPage, /sourceTitle:\s*job\.sourceTitle|sourceDescriptionText:\s*job\.sourceDescriptionText/);
   assert.match(publicJobsExplorer, /pageSize = 12/);
   assert.match(publicJobsExplorer, /experts-load-more/);
+  assert.match(publicJobsExplorer, /publishedLabel/);
   assert.match(homePage, /readAdamJobs/);
   assert.match(jobPage, /summary_large_image/);
   assert.match(jobPreview, /readAdamJobBySlug/);
