@@ -24,7 +24,6 @@ const createCandidateApplicationsSql = `CREATE TABLE IF NOT EXISTS candidate_app
   resume_filename TEXT NOT NULL,
   resume_content_type TEXT NOT NULL,
   resume_size_bytes INTEGER NOT NULL,
-  resume_text TEXT,
   parsed_fields_json TEXT NOT NULL DEFAULT '{}',
   confirmed_fields_json TEXT NOT NULL DEFAULT '{}',
   consent_given INTEGER NOT NULL DEFAULT 0,
@@ -50,7 +49,6 @@ export type NewCandidateApplication = {
   resumeFilename: string;
   resumeContentType: string;
   resumeSizeBytes: number;
-  resumeText?: string | null;
   /** Only populated if/when the parsing step (lib/resume-parser.ts) is wired back in — currently unused. */
   parsedFields?: ParsedResumeFields;
   confirmedFields?: Record<string, unknown>;
@@ -68,9 +66,9 @@ export async function createCandidateApplication(input: NewCandidateApplication)
 
   await env.DB.prepare(`INSERT INTO candidate_applications (
     id, job_id, job_slug, email, resume_r2_key, resume_filename, resume_content_type,
-    resume_size_bytes, resume_text, parsed_fields_json, confirmed_fields_json,
+    resume_size_bytes, parsed_fields_json, confirmed_fields_json,
     consent_given, status, notification_email_status, source, created_at, updated_at
-  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'received_pending_adam_sync', 'not_configured', 'career-intake', ?, ?)`).bind(
+  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'received_pending_adam_sync', 'not_configured', 'career-intake', ?, ?)`).bind(
     id,
     input.jobId ?? null,
     input.jobSlug ?? null,
@@ -79,7 +77,6 @@ export async function createCandidateApplication(input: NewCandidateApplication)
     input.resumeFilename,
     input.resumeContentType,
     input.resumeSizeBytes,
-    input.resumeText ?? null,
     JSON.stringify(input.parsedFields ?? {}),
     JSON.stringify(input.confirmedFields ?? {}),
     input.consentGiven ? 1 : 0,

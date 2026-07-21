@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Footer, Header } from "../../../components";
 import { getJobCategory, jobCategories } from "../../categories";
 import { readAdamJobs } from "../../../../lib/adam-db";
+import { configuredSiteUrl } from "../../../seo";
 
 export function generateStaticParams() {
   return jobCategories.map((category) => ({ slug: category.slug }));
@@ -26,7 +27,30 @@ export default async function JobCategoryPage({ params }: { params: Promise<{ sl
     const text = `${job.title} ${job.profession} ${job.subprofession}`.toLocaleLowerCase("he");
     return categoryTerms.some((term) => text.includes(term));
   });
-  return <main className="job-category-page"><Header />
+  const faqPage = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: category.questions.map((item) => ({
+      "@type": "Question",
+      name: item.title,
+      acceptedAnswer: { "@type": "Answer", text: item.text },
+    })),
+  };
+  const siteUrl = configuredSiteUrl();
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "דף הבית", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "משרות ומומחים", item: `${siteUrl}/experts` },
+      { "@type": "ListItem", position: 3, name: category.title, item: `${siteUrl}/jobs/category/${category.slug}` },
+    ],
+  };
+
+  return <main className="job-category-page">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPage).replace(/</g, "\\u003c") }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb).replace(/</g, "\\u003c") }} />
+    <Header />
     <section className="job-category-hero"><div className="shell"><Link className="job-back" href="/experts#roles">→ חזרה לכל המשרות</Link><div className="bilingual-head bilingual-head-hero"><h1>{category.title}</h1><p className="kicker">{category.eyebrow}</p></div><p>{category.description}</p><div className="category-skills" aria-label="מיומנויות נפוצות">{category.skills.map((skill) => <span key={skill}>{skill}</span>)}</div></div></section>
     <section className="category-openings shell" aria-labelledby="category-openings-title"><div className="bilingual-head"><h2 id="category-openings-title">משרות פתוחות בתחום</h2><p className="kicker">CURRENT OPPORTUNITIES</p></div>{categoryJobs.length ? <div className="category-job-list">{categoryJobs.map((job) => <Link href={`/jobs/${job.slug}`} key={job.slug}><small>{job.profession || category.label}</small><h3>{job.title}</h3><p>{[job.location || job.areas.join(" · "), job.jobScope, job.subprofession].filter(Boolean).join(" · ")}</p><span>לפרטים ←</span></Link>)}</div> : <div className="category-empty"><h3>אין כרגע משרה פתוחה בקטגוריה הזאת.</h3><p>אפשר לצפות בכל המשרות הפעילות או להעלות קורות חיים פעם אחת.</p><Link className="button primary" href="/experts#roles">לכל המשרות <span>←</span></Link></div>}</section>
     <section className="category-context"><div className="shell"><div className="category-context-grid">{category.questions.map((item, index) => <article key={item.title}><span>0{index + 1}</span><h2>{item.title}</h2><p>{item.text}</p></article>)}</div></div></section>

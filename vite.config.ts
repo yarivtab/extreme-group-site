@@ -11,24 +11,47 @@ const { d1, r2 } = hostingConfig;
 // macOS Seatbelt blocks FSEvents, so Codex previews need polling for HMR.
 const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
 
+// Set CLOUDFLARE_DEPLOY=true only for a real production build+deploy
+// (see docs/deploy-to-cloudflare.md). When true, secret-backed values are
+// deliberately left out of the generated Worker config entirely, so
+// `wrangler deploy` never bakes them in as plaintext `vars` and never
+// overwrites the real values already set via `wrangler secret put`. Local
+// dev (this flag unset) keeps reading them from `.env` as plaintext vars,
+// which is fine since that only ever runs on your own machine.
+const isProductionDeployBuild = process.env.CLOUDFLARE_DEPLOY === "true";
+
+const secretBackedVars = isProductionDeployBuild
+  ? {}
+  : {
+      ADAM_COMPANY_TOKEN: process.env.ADAM_COMPANY_TOKEN ?? "",
+      ADAM_SYNC_SECRET: process.env.ADAM_SYNC_SECRET ?? "",
+      OPENAI_API_KEY: process.env.OPENAI_API_KEY ?? "",
+      RESEND_API_KEY: process.env.RESEND_API_KEY ?? "",
+      RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL ?? "",
+    };
+
 const localBindingConfig = {
+  name: "extreme-group-site",
   main: "./worker/index.ts",
   compatibility_flags: ["nodejs_compat"],
   vars: {
-    ADAM_COMPANY_TOKEN: process.env.ADAM_COMPANY_TOKEN ?? "",
-    ADAM_SYNC_SECRET: process.env.ADAM_SYNC_SECRET ?? "",
+    ...secretBackedVars,
     ADAM_API_BASE_URL: process.env.ADAM_API_BASE_URL ?? "https://services.adamtotal.co.il/api/Career",
-    OPENAI_API_KEY: process.env.OPENAI_API_KEY ?? "",
-    RESEND_API_KEY: process.env.RESEND_API_KEY ?? "",
-    RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL ?? "",
     JOBS_INBOX_EMAIL: process.env.JOBS_INBOX_EMAIL ?? "jobs@extreme.co.il",
+    // Only declared when explicitly set, so its absence falls through to
+    // app/seo.ts's `?? previewSiteUrl` default rather than becoming a
+    // defined-but-empty string (which `??` would NOT fall back from).
+    ...(process.env.SITE_URL ? { SITE_URL: process.env.SITE_URL } : {}),
   },
   d1_databases: d1
     ? [
         {
           binding: d1,
-          database_name: "site-creator-d1",
-          database_id: SITE_CREATOR_PLACEHOLDER_DATABASE_ID,
+          // Real values are supplied via env vars at production build time
+          // (see docs/deploy-to-cloudflare.md); local dev keeps using the
+          // placeholder id, which Miniflare simulates locally either way.
+          database_name: process.env.D1_DATABASE_NAME ?? "site-creator-d1",
+          database_id: process.env.D1_DATABASE_ID ?? SITE_CREATOR_PLACEHOLDER_DATABASE_ID,
         },
       ]
     : [],
@@ -36,7 +59,7 @@ const localBindingConfig = {
     ? [
         {
           binding: r2,
-          bucket_name: "site-creator-r2",
+          bucket_name: process.env.R2_BUCKET_NAME ?? "site-creator-r2",
         },
       ]
     : [],

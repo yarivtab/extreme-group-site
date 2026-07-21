@@ -53,7 +53,6 @@ export const candidateApplications = sqliteTable("candidate_applications", {
   resumeFilename: text("resume_filename").notNull(),
   resumeContentType: text("resume_content_type").notNull(),
   resumeSizeBytes: integer("resume_size_bytes").notNull(),
-  resumeText: text("resume_text"),
   parsedFieldsJson: text("parsed_fields_json").notNull().default("{}"),
   confirmedFieldsJson: text("confirmed_fields_json").notNull().default("{}"),
   consentGiven: integer("consent_given", { mode: "boolean" }).notNull().default(false),

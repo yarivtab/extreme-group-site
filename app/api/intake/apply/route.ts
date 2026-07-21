@@ -1,4 +1,3 @@
-import { extractResumeText } from "../../../../lib/resume-text-extract";
 import { validateResumeFile } from "../../../../lib/resume-upload";
 import { createCandidateApplication, storeResumeInR2, updateNotificationEmailStatus } from "../../../../lib/candidate-applications-db";
 import { sendApplicationEmail, ApplicationEmailNotConfiguredError } from "../../../../lib/send-application-email";
@@ -59,13 +58,6 @@ export async function POST(request: Request) {
   const contentType = file.type || "application/octet-stream";
   const bytes = await file.arrayBuffer();
 
-  // Best-effort — plain text extraction (no LLM), kept only so the record is
-  // searchable later. A failure here never blocks saving the application.
-  const extraction = await extractResumeText({ bytes, filename: file.name, contentType }).catch(() => ({
-    text: "",
-    status: "failed" as const,
-  }));
-
   let resumeR2Key: string;
   try {
     resumeR2Key = await storeResumeInR2({ bytes, contentType, filename: file.name });
@@ -83,7 +75,6 @@ export async function POST(request: Request) {
       resumeFilename: file.name,
       resumeContentType: contentType,
       resumeSizeBytes: file.size,
-      resumeText: extraction.status === "ok" ? extraction.text : null,
       consentGiven,
     });
     applicationId = id;

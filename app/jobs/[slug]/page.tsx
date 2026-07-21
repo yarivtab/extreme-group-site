@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer, Header } from "../../components";
 import { readAdamJobBySlug } from "../../../lib/adam-db";
+import { configuredSiteUrl } from "../../seo";
 
 export const dynamic = "force-dynamic";
 
@@ -47,9 +48,20 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
     hiringOrganization: { "@type": "Organization", name: "Extreme Group", sameAs: "https://www.extreme.co.il" },
     jobLocation: { "@type": "Place", address: { "@type": "PostalAddress", addressLocality: location, addressCountry: "IL" } },
   };
+  const siteUrl = configuredSiteUrl();
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "דף הבית", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "משרות ומומחים", item: `${siteUrl}/experts` },
+      { "@type": "ListItem", position: 3, name: job.title, item: `${siteUrl}/jobs/${job.slug}` },
+    ],
+  };
 
   return <main className="job-page">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPosting).replace(/</g, "\\u003c") }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb).replace(/</g, "\\u003c") }} />
     <Header />
     <article className="job-detail shell">
       <Link className="job-back" href="/experts#roles">→ חזרה לכל המשרות</Link>
