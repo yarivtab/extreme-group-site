@@ -63,6 +63,12 @@ const localBindingConfig = {
         },
       ]
     : [],
+  // Keeps Adam job listings fresh automatically (worker/index.ts's
+  // `scheduled` handler). Only added for real production deploy builds —
+  // local dev shouldn't repeatedly hit the real Adam API on a schedule.
+  // Every 6 hours, offset from the hour so it doesn't pile up with other
+  // providers' on-the-hour crons.
+  ...(isProductionDeployBuild ? { triggers: { crons: ["15 */6 * * *"] } } : {}),
 };
 
 export default defineConfig(async () => {

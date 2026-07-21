@@ -1,6 +1,8 @@
 /** Cloudflare Worker entry point for the vinext-starter template. */
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
+import { fetchAdamJobs } from "../lib/adam";
+import { replaceAdamJobs } from "../lib/adam-db";
 
 interface Env {
   ASSETS: Fetcher;
@@ -42,6 +44,24 @@ const worker = {
     }
 
     return handler.fetch(request, env, ctx);
+  },
+
+  // Keeps job listings fresh automatically (see wrangler's `triggers.crons`
+  // in vite.config.ts) — the same sync logic /api/adam/sync exposes for
+  // manual/on-demand triggering, just invoked on a schedule instead. Errors
+  // are logged, never thrown, so a bad Adam response doesn't crash the cron.
+  async scheduled(_event: unknown, _env: Env, ctx: ExecutionContext): Promise<void> {
+    ctx.waitUntil(
+      (async () => {
+        try {
+          const jobs = await fetchAdamJobs();
+          const result = await replaceAdamJobs(jobs);
+          console.log("Scheduled Adam sync complete:", result);
+        } catch (error) {
+          console.error("Scheduled Adam sync failed:", error instanceof Error ? error.message : error);
+        }
+      })(),
+    );
   },
 };
 
