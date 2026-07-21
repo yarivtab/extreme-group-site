@@ -5,6 +5,10 @@ import { insights } from "./data";
 
 const articles = insights.filter((insight) => !insight.isDraft);
 const featuredArticle = articles[0];
+// The grid below the featured card must not repeat it — previously
+// `articles` (including index 0) was reused directly in the grid, so with
+// only one published article it appeared twice, identical, on the page.
+const remainingArticles = articles.slice(1);
 
 export default function InsightsPage() {
   return <main className="insights-page">
@@ -20,12 +24,12 @@ export default function InsightsPage() {
       <div className="insight-feature-copy"><small>מאמר מוביל · {featuredArticle.type}</small><h2>{featuredArticle.title}</h2><p>{featuredArticle.description}</p><span>{featuredArticle.meta} · לקריאה ←</span></div>
     </Link>}
 
-    <section className="insight-feed shell" id="latest" aria-labelledby="latest-title">
-      <div className="insight-feed-head"><div className="bilingual-head"><h2 id="latest-title">מה אנחנו חושבים עכשיו</h2><p className="kicker">LATEST THINKING</p></div><span>{articles.length} מאמרים ותכנים</span></div>
+    {remainingArticles.length > 0 && <section className="insight-feed shell" id="latest" aria-labelledby="latest-title">
+      <div className="insight-feed-head"><div className="bilingual-head"><h2 id="latest-title">מה אנחנו חושבים עכשיו</h2><p className="kicker">LATEST THINKING</p></div><span>{remainingArticles.length} מאמרים ותכנים</span></div>
       <div className="insight-editorial-grid">
-        {articles.map((article, index) => <Link href={`/insights/${article.slug}`} className={`insight-entry entry-${index + 1}${article.image ? " has-image" : ""}`} key={article.title}>{article.image && <img className="insight-entry-image" src={article.image} alt="" width="1448" height="1086" />}<small>{article.type}</small><h3>{article.title}</h3><p>{article.meta}</p><span aria-hidden="true">↗</span></Link>)}
+        {remainingArticles.map((article, index) => <Link href={`/insights/${article.slug}`} className={`insight-entry entry-${index + 1}${article.image ? " has-image" : ""}`} key={article.title}>{article.image && <img className="insight-entry-image" src={article.image} alt="" width="1448" height="1086" />}<small>{article.type}</small><h3>{article.title}</h3><p>{article.meta}</p><span aria-hidden="true">↗</span></Link>)}
       </div>
-    </section>
+    </section>}
     <Footer />
   </main>;
 }
