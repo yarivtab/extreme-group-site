@@ -60,8 +60,16 @@ function adamDate(value: AdamValue) {
   return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
 }
 
+// Adam order titles are entered by recruiters and often carry filler like
+// "\u05d3\u05e8\u05d5\u05e9/\u05d4 ..." or "\u05de\u05d7\u05e4\u05e9\u05d9\u05dd ..." ahead of the actual role name. Stripping it
+// here keeps job URLs clean (e.g. avoids slugs like
+// "\u05d3\u05e8\u05d5\u05e9-\u05d4-\u05de\u05e4\u05ea\u05d7-\u05ea-full-stack-23081") without touching the editorial
+// title-cleaning pipeline used for on-page display (lib/job-editorial.ts).
+const SLUG_FILLER_PREFIX = /^\s*(?:\u05d3\u05e8\u05d5\u05e9(?:\/\u05d4|\u05d4|\u05d9\u05dd|\u05d5\u05ea)?|\u05de\u05d7\u05e4\u05e9\u05d9\u05dd(?:\/\u05d5\u05ea)?|\u05de\u05d2\u05d9\u05d9\u05e1\u05d9\u05dd(?:\/\u05d5\u05ea)?)\s*[-:\u2013\u2014|]*\s*/i;
+
 function slugify(title: string, id: number) {
-  const normalized = title
+  const stripped = title.replace(SLUG_FILLER_PREFIX, "");
+  const normalized = (stripped || title)
     .toLowerCase()
     .replace(/[^a-z0-9\u0590-\u05ff]+/g, "-")
     .replace(/^-+|-+$/g, "")

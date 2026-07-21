@@ -44,7 +44,11 @@ function cleanTitle(job: PublicAdamJob) {
     .replace(new RegExp(`(?:^|[\s#(])${job.id}(?=$|[\s)])`, "g"), " ")
     .replace(/^\s*(?:דרוש(?:\/ה|ה|ים|ות)?|מחפשים(?:\/ות)?|מגייסים(?:\/ות)?)\s*[-:–—|]*\s*/i, "")
     .replace(/\s+(?:דרוש(?:\/ה|ה|ים|ות)?)\s*$/i, "")
-    .replace(/([\u0590-\u05ff])\s*\/\s*(ית|אשת|ות|[תה])(?=\s|$)/g, "$1/$2")
+    // Recruiters enter the gender-inclusive suffix with inconsistent
+    // separators across postings ("מנהל/ת", "מנהל.ת", or a stray literal
+    // backslash "מנהל\\ת"). Normalize all of them to the slash convention so
+    // published titles read consistently site-wide.
+    .replace(/([\u0590-\u05ff])\s*[\\./]\s*(ית|אשת|ות|[תה])(?=\s|$)/g, "$1/$2")
     .replace(/\s+,\s*/g, ", ")
     .replace(/\s+לארגון\s+(?:פיננסי|גדול|מוביל|גלובלי)(?:\s+.*)?$/i, "")
     .replace(/\s*[-–—]\s*כללי\s*$/i, "")
