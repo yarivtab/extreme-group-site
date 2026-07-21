@@ -105,3 +105,21 @@ test("responsible publisher removes recruitment language and job numbers", () =>
   assert.match(genericCampaign.publicSummary, /Help Desk, NOC, System, Cloud/);
   assert.equal(genericCampaign.publicRequirements, "");
 });
+
+test("keeps the public site focused on working content and a lean application", async () => {
+  const [intakeForm, insightsPage, insightPage, solutionsPage, components] = await Promise.all([
+    read("../app/intake/IntakeForm.tsx"),
+    read("../app/insights/page.tsx"),
+    read("../app/insights/[slug]/page.tsx"),
+    read("../app/solutions/page.tsx"),
+    read("../app/components.tsx"),
+  ]);
+
+  assert.match(intakeForm, /career-upload/);
+  assert.match(intakeForm, /אימייל לקבלת אישור/);
+  assert.match(intakeForm, /שליחת קורות חיים/);
+  assert.doesNotMatch(insightsPage, /בקרוב|insight-video/);
+  assert.doesNotMatch(solutionsPage, /COMING SOON|sivan-video/);
+  assert.doesNotMatch(components, /exi-dock/);
+  assert.match(insightPage, /!insight\.isDraft/);
+});

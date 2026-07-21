@@ -18,6 +18,10 @@ const localBindingConfig = {
     ADAM_COMPANY_TOKEN: process.env.ADAM_COMPANY_TOKEN ?? "",
     ADAM_SYNC_SECRET: process.env.ADAM_SYNC_SECRET ?? "",
     ADAM_API_BASE_URL: process.env.ADAM_API_BASE_URL ?? "https://services.adamtotal.co.il/api/Career",
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY ?? "",
+    RESEND_API_KEY: process.env.RESEND_API_KEY ?? "",
+    RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL ?? "",
+    JOBS_INBOX_EMAIL: process.env.JOBS_INBOX_EMAIL ?? "jobs@extreme.co.il",
   },
   d1_databases: d1
     ? [

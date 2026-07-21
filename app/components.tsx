@@ -10,9 +10,6 @@ export function Header() {
 
 export function Footer() {
   return <footer className="extreme-footer">
-    <Link className="exi-dock" href="/intake?track=career" aria-label="אקסי — התחילו התאמה חכמה">
-      <img src="/exi-avatar.png" alt="" width="900" height="900" /><span><small>MEET EXI</small><strong>מתחילים התאמה חכמה ←</strong></span>
-    </Link>
     <div className="shell footer-brand-row">
       <p>Recruiting Intelligence שמחבר אנשים להזדמנויות הנכונות.</p>
       <div className="footer-socials" aria-label="עקבו אחרינו"><a href="https://www.linkedin.com/company/extreme-technologies" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://on.fb.me/1Fe92Pr" target="_blank" rel="noreferrer">Facebook ↗</a><a href="https://bit.ly/1D2IoVF" target="_blank" rel="noreferrer">Instagram ↗</a></div>

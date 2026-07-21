@@ -7,18 +7,63 @@ const tracks = [
   ["talent", "גיוס טכנולוגי"], ["project", "פרויקט AI / אוטומציה"], ["profile", "פרופיל משרה"], ["career", "קורות חיים"], ["referral", "המלצה על מועמד"], ["general", "שאלה כללית"],
 ];
 
+type CareerStep = "idle" | "submitting" | "done";
+
 export function IntakeForm({ initialTrack, role, bonus, jobId }: { initialTrack?: string; role?: string; bonus?: string; jobId?: string }) {
   const [sent, setSent] = useState(false);
   const [selectedTrack, setSelectedTrack] = useState(initialTrack || "talent");
   const isReferral = selectedTrack === "referral";
   const isCareer = selectedTrack === "career";
   function submit(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setSent(true); }
-  if (sent) return <div className="success-panel demo-success" role="status"><span>DEMO / VALIDATED</span><h2>בדיקת הטופס<br />הושלמה בהצלחה.</h2><p>זו סביבת דמה: הפרטים וקובץ קורות החיים לא נשלחו ולא נשמרו. לאחר חיבור מערכת אדם, אותו מסלול יעביר את המועמדות למשרה הנכונה.</p><Link href={isCareer || isReferral ? "/experts#roles" : "/"} className="button primary">חזרה לאתר <span>←</span></Link></div>;
-  return <form className="intake-form" onSubmit={submit}>
-    <div className="demo-form-notice"><strong>סביבת דמה</strong><span>אפשר לבדוק את חוויית הטופס. שום מידע אינו נשלח או נשמר.</span></div>
-    <fieldset className="track-fieldset"><legend>מה מביא אתכם אלינו?</legend><div className="track-grid">{tracks.map(([value,label])=><label className="track-option" key={value}><input type="radio" name="track" value={value} checked={selectedTrack === value} onChange={() => setSelectedTrack(value)}/><span>{label}</span></label>)}</div></fieldset>
+
+  // --- Career track: single step (upload + email + consent), no parsing/confirm screen. ---
+  const [careerStep, setCareerStep] = useState<CareerStep>("idle");
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [careerEmail, setCareerEmail] = useState("");
+  const [consentChecked, setConsentChecked] = useState(false);
+  const [careerError, setCareerError] = useState<string | null>(null);
+
+  async function handleCareerSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!resumeFile) return;
+    setCareerError(null);
+    setCareerStep("submitting");
+    try {
+      const body = new FormData();
+      body.append("file", resumeFile);
+      body.append("email", careerEmail);
+      body.append("jobId", jobId || "");
+      body.append("role", role || "");
+      body.append("consent", consentChecked ? "true" : "false");
+      const response = await fetch("/api/intake/apply", { method: "POST", body });
+      const data = await response.json().catch(() => null) as { ok?: boolean; error?: string } | null;
+      if (response.ok && data?.ok) {
+        setCareerStep("done");
+      } else {
+        setCareerError(data?.error || "לא הצלחנו לשמור את ההגשה. נסו שוב.");
+        setCareerStep("idle");
+      }
+    } catch {
+      setCareerError("לא הצלחנו לשמור את ההגשה. בדקו את החיבור לאינטרנט ונסו שוב.");
+      setCareerStep("idle");
+    }
+  }
+
+  if (isCareer && careerStep === "done") {
+    return <div className="success-panel" role="status">
+      <span>התקבל</span>
+      <h2>קיבלנו את קורות החיים<br />שלך.</h2>
+      <p>קורות החיים הועברו לצוות הגיוס שלנו ונחזור אליך אם נמצא התאמה.</p>
+      <Link href="/experts#roles" className="button primary">חזרה לאתר <span>←</span></Link>
+    </div>;
+  }
+
+  if (sent) return <div className="success-panel demo-success" role="status"><span>DEMO / VALIDATED</span><h2>הטופס תקין<br />ומוכן לחיבור.</h2><p>זו עדיין סביבת בדיקה: הפרטים והקובץ לא נשלחו ולא נשמרו. לאחר חיבור מערכת אדם, המועמדות תועבר למשרה הנכונה.</p><Link href={isReferral ? "/experts#roles" : "/"} className="button primary">חזרה לאתר <span>←</span></Link></div>;
+
+  return <form className="intake-form" onSubmit={isCareer ? handleCareerSubmit : submit}>
+    {!initialTrack && <fieldset className="track-fieldset"><legend>איך אפשר לעזור?</legend><div className="track-grid">{tracks.map(([value,label])=><label className="track-option" key={value}><input type="radio" name="track" value={value} checked={selectedTrack === value} onChange={() => setSelectedTrack(value)}/><span>{label}</span></label>)}</div></fieldset>}
     {isReferral && <div className="referral-form-summary"><span>REFERRAL PILOT</span><strong>{role || "משרה לבחירה"}</strong>{bonus && <b>מענק מוצע: ₪{Number(bonus).toLocaleString("he-IL")}</b>}<small>הסכום והתנאים הסופיים יאושרו לאחר החיבור ל־ATS.</small></div>}
-    {isCareer && <div className="career-form-summary"><span>APPLICATION / DEMO</span><strong>{role || "הגשת קורות חיים כללית"}</strong><small>{jobId ? `מספר משרה: ${jobId}` : "הפרופיל יישמר למגוון הזדמנויות לאחר חיבור ה־ATS"}</small></div>}
+    {isCareer && <div className="career-form-summary"><span>APPLICATION</span><strong>{role || "הגשת קורות חיים כללית"}</strong><small>{jobId ? `מספר משרה: ${jobId}` : "קובץ אחד להזדמנויות מקצועיות רלוונטיות"}</small></div>}
     {isReferral ? <div className="form-grid referral-form-grid">
       <input type="hidden" name="jobId" value={jobId || ""} />
       <input type="hidden" name="role" value={role || ""} />
@@ -35,19 +80,12 @@ export function IntakeForm({ initialTrack, role, bonus, jobId }: { initialTrack?
       <label className="full referral-consent"><input type="checkbox" name="consent" required /><span>אני מאשר/ת שהמועמד/ת יודע/ת ומסכים/ה להעברת הפרטים ל־Extreme לצורך בחינת ההתאמה, בהתאם ל<Link href="/privacy">מדיניות הפרטיות</Link>.</span></label>
       <p className="form-note full">הזכאות למענק כפופה לתנאי תוכנית ההפניות, לזיהוי הממליץ הראשון ולקליטת המועמד/ת.</p>
       <button className="button primary full" type="submit">שליחת המלצה <span>←</span></button>
-    </div> : isCareer ? <div className="form-grid career-application-grid">
-      <input type="hidden" name="jobId" value={jobId || ""} />
-      <input type="hidden" name="role" value={role || ""} />
-      <label>שם מלא<input name="name" required placeholder="השם שלכם" autoComplete="name" /></label>
-      <label>אימייל<input type="email" name="email" required placeholder="name@email.com" autoComplete="email" /></label>
-      <label>טלפון<input type="tel" name="phone" required placeholder="050-0000000" autoComplete="tel" /></label>
-      <label>אזור מגורים<input name="location" placeholder="עיר או אזור" autoComplete="address-level2" /></label>
-      <label className="full">LinkedIn או קישור מקצועי<input type="url" name="linkedin" placeholder="https://linkedin.com/in/..." /></label>
-      <label className="full">כמה מילים עליכם<textarea name="message" placeholder="ניסיון רלוונטי, כיוון מקצועי או מידע שחשוב שנכיר." /></label>
-      <label className="full upload-box">צירוף קורות חיים<input type="file" name="file" accept=".pdf,.doc,.docx" required /></label>
-      <label className="full referral-consent"><input type="checkbox" name="consent" required /><span>אני מאשר/ת ל־Extreme להשתמש בפרטים לצורך בחינת התאמה למשרה ולהזדמנויות מקצועיות רלוונטיות, בהתאם ל<Link href="/privacy">מדיניות הפרטיות</Link>.</span></label>
-      <p className="form-note full">בדמו הקובץ נבדק בצד הדפדפן בלבד ואינו מועלה לשרת.</p>
-      <button className="button primary full" type="submit">בדיקת הגשת מועמדות <span>←</span></button>
+    </div> : isCareer ? <div className="form-grid career-application-grid compact-career-grid">
+      <label className="full upload-box career-upload"><strong>העלאת קורות חיים</strong><span>PDF, DOC או DOCX</span><input type="file" name="file" accept=".pdf,.doc,.docx" required onChange={(e) => setResumeFile(e.target.files?.[0] ?? null)} /></label>
+      <label className="full">אימייל לקבלת אישור<input type="email" value={careerEmail} onChange={(e) => setCareerEmail(e.target.value)} required placeholder="name@email.com" autoComplete="email" /></label>
+      <label className="full referral-consent compact-consent"><input type="checkbox" checked={consentChecked} onChange={(e) => setConsentChecked(e.target.checked)} required /><span>אני מאשר/ת ל־Extreme להשתמש בפרטים לבחינת התאמה, בהתאם ל<Link href="/privacy">מדיניות הפרטיות</Link>.</span></label>
+      {careerError && <p className="career-error full" role="alert">{careerError}</p>}
+      <button className="button primary full" type="submit" disabled={careerStep === "submitting" || !resumeFile}>{careerStep === "submitting" ? "שולח..." : "שליחת קורות חיים"} <span>←</span></button>
     </div> : <div className="form-grid">
       <label>שם מלא<input name="name" required placeholder="השם שלכם" autoComplete="name" /></label>
       <label>חברה<input name="company" placeholder="שם הארגון" autoComplete="organization" /></label>

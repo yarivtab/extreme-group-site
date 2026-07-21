@@ -37,3 +37,33 @@ export const adamJobPublications = sqliteTable("adam_job_publications", {
   engineVersion: text("engine_version").notNull(),
   generatedAt: text("generated_at").notNull(),
 }, (table) => [index("adam_job_publications_status_idx").on(table.editorialStatus, table.confidence)]);
+
+// Candidate applications submitted through /intake?track=career. The resume
+// file itself lives in R2 (see the `RESUMES` binding) — D1 stores only the
+// object key plus small text/JSON fields, per Cloudflare's guidance against
+// storing files in D1 rows. `status` tracks the (still pending) handoff to
+// Adam: nothing here is forwarded to Adam automatically until that
+// integration exists (see docs/adam-candidate-api-requirements.md).
+export const candidateApplications = sqliteTable("candidate_applications", {
+  id: text("id").primaryKey(),
+  jobId: integer("job_id"),
+  jobSlug: text("job_slug"),
+  email: text("email").notNull(),
+  resumeR2Key: text("resume_r2_key").notNull(),
+  resumeFilename: text("resume_filename").notNull(),
+  resumeContentType: text("resume_content_type").notNull(),
+  resumeSizeBytes: integer("resume_size_bytes").notNull(),
+  resumeText: text("resume_text"),
+  parsedFieldsJson: text("parsed_fields_json").notNull().default("{}"),
+  confirmedFieldsJson: text("confirmed_fields_json").notNull().default("{}"),
+  consentGiven: integer("consent_given", { mode: "boolean" }).notNull().default(false),
+  status: text("status").notNull().default("received_pending_adam_sync"),
+  // Whether the best-effort notification email to the recruiting inbox went
+  // out: 'sent', 'failed', or 'not_configured' (no RESEND_API_KEY set). This
+  // is a convenience channel only — the row itself is the durable record,
+  // so a failed email here never means the application was lost.
+  notificationEmailStatus: text("notification_email_status").notNull().default("not_configured"),
+  source: text("source").notNull().default("career-intake"),
+  createdAt: text("created_at").notNull(),
+  updatedAt: text("updated_at").notNull(),
+}, (table) => [index("candidate_applications_status_idx").on(table.status, table.createdAt)]);

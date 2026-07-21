@@ -70,7 +70,7 @@ export default async function JobPage({ params }: { params: Promise<{ slug: stri
           {requirementBlocks.length > 0 && <div><h2>דרישות התפקיד</h2><ul>{requirementBlocks.map((item) => <li key={item}>{item}</li>)}</ul></div>}
         </section>
         <div className="job-sidebar">
-          <aside className="job-apply-card"><span>השלב הבא</span><h2>נשמע מתאים?</h2><p>שלחו קורות חיים ונחזור אליכם אם נמצא חיבור נכון לתפקיד. בשלב הבדיקה הטופס עדיין אינו מעביר נתונים ל־Adam.</p><Link href={intakeUrl}>להגשת מועמדות ←</Link></aside>
+          <aside className="job-apply-card"><span>השלב הבא</span><h2>נשמע מתאים?</h2><p>מעלים קורות חיים פעם אחת. את שאר הפרטים נחלץ מהקובץ ונבקש השלמה רק אם צריך.</p><Link href={intakeUrl}>להגשת מועמדות ←</Link></aside>
           {job.referralReward > 0 && <section className="job-referral-card" aria-labelledby="referral-title">
             <small>REFERRAL</small><h2 id="referral-title">מכירים מישהו<br />שמתאים לתפקיד?</h2>
             <p>המליצו על מועמד או מועמדת. אם ההפניה תוביל לקליטה בהתאם לתנאי התוכנית, מענק ההפניה יהיה:</p>
