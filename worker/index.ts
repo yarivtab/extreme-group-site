@@ -3,6 +3,7 @@ import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } fr
 import handler from "vinext/server/app-router-entry";
 import { fetchAdamJobs } from "../lib/adam";
 import { replaceAdamJobs } from "../lib/adam-db";
+import { getWpRedirectTarget } from "../lib/wp-redirects";
 
 interface Env {
   ASSETS: Fetcher;
@@ -31,6 +32,14 @@ interface ExecutionContext {
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+
+    // Redirect old WordPress post URLs (extreme.co.il) to their new-site
+    // equivalents. Must run before vinext delegation so old permalinks never
+    // 404 once the real domain points at this Worker.
+    const wpRedirectTarget = getWpRedirectTarget(url.pathname);
+    if (wpRedirectTarget) {
+      return Response.redirect(new URL(wpRedirectTarget, request.url).toString(), 301);
+    }
 
     if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];
