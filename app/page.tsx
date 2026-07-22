@@ -14,10 +14,10 @@ export default async function Home() {
       <section className="talent-hero" aria-labelledby="hero-title">
         <div className="shell talent-hero-inner">
           <p className="eyebrow"><span /> AI‑NATIVE RECRUITING INTELLIGENCE</p>
-          <h1 id="hero-title"><span className="hero-english" dir="ltr">Recruiting Intelligence</span><span className="hero-hebrew">שמחבר אנשים <em>להזדמנויות הנכונות.</em></span></h1>
+          <h1 id="hero-title"><span className="hero-english" dir="ltr">Recruiting Intelligence</span><span className="hero-hebrew">שמחבר את האנשים הנכונים <em>להזדמנויות הנכונות.</em></span></h1>
           <p>Data איכותי, מודלי AI ואוטומציה שמפחיתים רעש, משפרים התאמות ומקצרים את הדרך — לצוותי גיוס ולטאלנטים.</p>
           <div className="talent-hero-actions">
-            <Link className="button hero-employer" href="/intake?track=talent">אני מגייס/ת <span>←</span></Link>
+            <Link className="button hero-employer" href="/intake?track=talent">אני מגייס/ת טאלנטים <span>←</span></Link>
             <Link className="button hero-talent" href="/experts">אני מחפש/ת הזדמנות <span>←</span></Link>
           </div>
         </div>
@@ -28,8 +28,8 @@ export default async function Home() {
           <div className="network-steps-head"><h2 id="steps-title">שלושה צעדים לחיבור מדויק יותר.</h2><p className="kicker">HOW IT WORKS</p></div>
           <div className="network-step-grid">
             <article><span>01</span><h3>משתפים צורך או פרופיל</h3><p>צוותי גיוס מגדירים תפקיד. טאלנטים משתפים ניסיון, יכולות והעדפות.</p></article>
-            <article><span>02</span><h3>ה־Intelligence עובד</h3><p>Data, מודלי AI ואוטומציה מזהים התאמות ומפחיתים רעש משני הצדדים.</p></article>
-            <article><span>03</span><h3>נפגשים ומתקדמים</h3><p>המגייסת והטאלנט מקבלים הקשר ברור וממשיכים להחלטה אנושית טובה יותר.</p></article>
+            <article><span>02</span><h3>מזהים התאמות</h3><p>Data, מודלי AI ואוטומציה מזהים התאמות ומפחיתים רעש משני הצדדים.</p></article>
+            <article><span>03</span><h3>נפגשים ומתקדמים</h3><p>המגייס/ת והטאלנט מקבלים הקשר ברור וממשיכים להחלטה אנושית טובה יותר.</p></article>
           </div>
         </div>
       </section>
