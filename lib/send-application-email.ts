@@ -15,7 +15,7 @@ export class ApplicationEmailNotConfiguredError extends Error {
 }
 
 export type ApplicationEmailInput = {
-  candidateEmail: string;
+  candidateEmail?: string | null;
   jobId?: number | null;
   jobSlug?: string | null;
   role?: string | null;
@@ -49,10 +49,11 @@ export async function sendApplicationEmail(input: ApplicationEmailInput): Promis
   if (!fromAddress) throw new Error("RESEND_FROM_EMAIL is not configured");
   const toAddress = (runtimeEnv.JOBS_INBOX_EMAIL || process.env.JOBS_INBOX_EMAIL || "jobs@extreme.co.il").trim();
 
+  const candidateEmail = input.candidateEmail?.trim() || "";
   const subject = input.role ? `הגשת מועמדות דרך האתר: ${input.role}` : "הגשת מועמדות חדשה דרך האתר";
   const html = `<div dir="rtl" style="font-family:sans-serif;font-size:15px;line-height:1.6">
     <p>התקבלה הגשת מועמדות חדשה דרך טופס הקריירה באתר.</p>
-    <p><strong>אימייל המועמד/ת:</strong> ${escapeHtml(input.candidateEmail)}</p>
+    ${candidateEmail ? `<p><strong>אימייל המועמד/ת:</strong> ${escapeHtml(candidateEmail)}</p>` : ""}
     ${input.role ? `<p><strong>תפקיד:</strong> ${escapeHtml(input.role)}</p>` : ""}
     ${input.jobId ? `<p><strong>מספר משרה:</strong> ${input.jobId}</p>` : ""}
     <p>קורות החיים מצורפים לאימייל זה.</p>
@@ -66,7 +67,7 @@ export async function sendApplicationEmail(input: ApplicationEmailInput): Promis
     body: JSON.stringify({
       from: fromAddress,
       to: [toAddress],
-      reply_to: input.candidateEmail,
+      ...(candidateEmail ? { reply_to: candidateEmail } : {}),
       subject,
       html,
       attachments: [{ content: base64Content, filename: input.resumeFilename, content_type: input.resumeContentType }],

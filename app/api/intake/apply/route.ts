@@ -39,8 +39,10 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, error: validationError }, { status: 400 });
   }
 
+  // Email is optional on the career track — candidates aren't asked for it.
+  // If a caller does supply one, still validate its shape.
   const email = String(formData.get("email") ?? "").trim();
-  if (!EMAIL_PATTERN.test(email)) {
+  if (email && !EMAIL_PATTERN.test(email)) {
     return Response.json({ ok: false, error: "Invalid email address" }, { status: 400 });
   }
 

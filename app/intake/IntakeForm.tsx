@@ -19,7 +19,6 @@ export function IntakeForm({ initialTrack, role, bonus, jobId }: { initialTrack?
   // --- Career track: single step (upload + email + consent), no parsing/confirm screen. ---
   const [careerStep, setCareerStep] = useState<CareerStep>("idle");
   const [resumeFile, setResumeFile] = useState<File | null>(null);
-  const [careerEmail, setCareerEmail] = useState("");
   const [consentChecked, setConsentChecked] = useState(false);
   const [careerError, setCareerError] = useState<string | null>(null);
 
@@ -31,7 +30,6 @@ export function IntakeForm({ initialTrack, role, bonus, jobId }: { initialTrack?
     try {
       const body = new FormData();
       body.append("file", resumeFile);
-      body.append("email", careerEmail);
       body.append("jobId", jobId || "");
       body.append("role", role || "");
       body.append("consent", consentChecked ? "true" : "false");
@@ -82,7 +80,6 @@ export function IntakeForm({ initialTrack, role, bonus, jobId }: { initialTrack?
       <button className="button primary full" type="submit">שליחת המלצה <span>←</span></button>
     </div> : isCareer ? <div className="form-grid career-application-grid compact-career-grid">
       <label className="full upload-box career-upload"><strong>העלאת קורות חיים</strong><span>PDF, DOC או DOCX</span><input type="file" name="file" accept=".pdf,.doc,.docx" required onChange={(e) => setResumeFile(e.target.files?.[0] ?? null)} /></label>
-      <label className="full">אימייל לקבלת אישור<input type="email" value={careerEmail} onChange={(e) => setCareerEmail(e.target.value)} required placeholder="name@email.com" autoComplete="email" /></label>
       <label className="full referral-consent compact-consent"><input type="checkbox" checked={consentChecked} onChange={(e) => setConsentChecked(e.target.checked)} required /><span>אני מאשר/ת ל־Extreme להשתמש בפרטים לבחינת התאמה, בהתאם ל<Link href="/privacy">מדיניות הפרטיות</Link>.</span></label>
       {careerError && <p className="career-error full" role="alert">{careerError}</p>}
       <button className="button primary full" type="submit" disabled={careerStep === "submitting" || !resumeFile}>{careerStep === "submitting" ? "שולח..." : "שליחת קורות חיים"} <span>←</span></button>
