@@ -27,7 +27,7 @@ export default function InsightsPage() {
     {remainingArticles.length > 0 && <section className="insight-feed shell" id="latest" aria-labelledby="latest-title">
       <div className="insight-feed-head"><div className="bilingual-head"><h2 id="latest-title">מה אנחנו חושבים עכשיו</h2><p className="kicker">LATEST THINKING</p></div><span>{remainingArticles.length} מאמרים ותכנים</span></div>
       <div className="insight-editorial-grid">
-        {remainingArticles.map((article, index) => <Link href={`/insights/${article.slug}`} className={`insight-entry entry-${index + 1}${article.image ? " has-image" : ""}`} key={article.title}>{article.image && <img className="insight-entry-image" src={article.image} alt="" width="1448" height="1086" />}<small>{article.type}</small><h3>{article.title}</h3><p>{article.meta}</p><span aria-hidden="true">↗</span></Link>)}
+        {remainingArticles.map((article, index) => <Link href={`/insights/${article.slug}`} className={`insight-entry entry-${index + 1}${article.image ? ` has-image ${index % 2 === 0 ? "image-left" : "image-right"}` : ""}`} key={article.title}>{article.image && <img className="insight-entry-image" src={article.image} alt={article.imageAlt ?? ""} width="1448" height="1086" />}<small>{article.type}</small><h3>{article.title}</h3><p>{article.meta}</p><span aria-hidden="true">↗</span></Link>)}
       </div>
     </section>}
     <Footer />
