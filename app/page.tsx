@@ -17,7 +17,7 @@ export default async function Home() {
           <h1 id="hero-title"><span className="hero-english" dir="ltr">Recruiting Intelligence</span><span className="hero-hebrew">שמחבר את האנשים הנכונים <em>להזדמנויות הנכונות.</em></span></h1>
           <p>Data איכותי, מודלי AI ואוטומציה שמפחיתים רעש, משפרים התאמות ומקצרים את הדרך — לצוותי גיוס ולטאלנטים.</p>
           <div className="talent-hero-actions">
-            <Link className="button hero-employer" href="/intake?track=talent">אני מגייס/ת טאלנטים <span>←</span></Link>
+            <Link className="button hero-employer" href="/intake?track=talent">אני מגייס/ת <span>←</span></Link>
             <Link className="button hero-talent" href="/experts">אני מחפש/ת הזדמנות <span>←</span></Link>
           </div>
         </div>
