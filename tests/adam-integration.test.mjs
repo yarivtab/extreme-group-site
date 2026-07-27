@@ -116,7 +116,10 @@ test("keeps the public site focused on working content and a lean application", 
   ]);
 
   assert.match(intakeForm, /career-upload/);
-  assert.match(intakeForm, /אימייל לקבלת אישור/);
+  // Career-track applicants aren't asked for an email address (cut deliberately
+  // to reduce friction) — keep the assertion pointed at that intent instead of
+  // a label that no longer exists.
+  assert.doesNotMatch(intakeForm, /אימייל לקבלת אישור/);
   assert.match(intakeForm, /שליחת קורות חיים/);
   assert.doesNotMatch(insightsPage, /בקרוב|insight-video/);
   assert.doesNotMatch(solutionsPage, /COMING SOON|sivan-video/);

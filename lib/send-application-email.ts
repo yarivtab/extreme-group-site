@@ -1,4 +1,5 @@
 import { env } from "cloudflare:workers";
+import { ApplicationEmailNotConfiguredError } from "./application-email-errors.ts";
 
 // Sends the candidate's resume as an email attachment to the recruiting
 // inbox via Resend (https://resend.com). This is the "send it to a human"
@@ -7,12 +8,12 @@ import { env } from "cloudflare:workers";
 // is still saved to D1/R2 first (see lib/candidate-applications-db.ts) so a
 // failed or spam-filtered email never means the application is lost.
 
-export class ApplicationEmailNotConfiguredError extends Error {
-  constructor() {
-    super("RESEND_API_KEY is not configured — application emails cannot be sent.");
-    this.name = "ApplicationEmailNotConfiguredError";
-  }
-}
+// Re-exported so existing callers (e.g. app/api/intake/apply/route.ts) keep
+// importing it from here — the class itself now lives in a
+// "cloudflare:workers"-free module so it can also be imported by code and
+// tests that must never touch that virtual module (see
+// lib/application-email-errors.ts for why).
+export { ApplicationEmailNotConfiguredError };
 
 export type ApplicationEmailInput = {
   candidateEmail?: string | null;

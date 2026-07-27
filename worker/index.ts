@@ -4,6 +4,8 @@ import handler from "vinext/server/app-router-entry";
 import { fetchAdamJobs } from "../lib/adam";
 import { replaceAdamJobs } from "../lib/adam-db";
 import { getWpRedirectTarget } from "../lib/wp-redirects";
+import { ingestResumeMailbox } from "../lib/resume-mailbox-ingest";
+import { RESUME_MAILBOX_CRON } from "../lib/cron-schedules";
 
 interface Env {
   ASSETS: Fetcher;
@@ -55,13 +57,27 @@ const worker = {
     return handler.fetch(request, env, ctx);
   },
 
-  // Keeps job listings fresh automatically (see wrangler's `triggers.crons`
-  // in vite.config.ts) — the same sync logic /api/adam/sync exposes for
-  // manual/on-demand triggering, just invoked on a schedule instead. Errors
-  // are logged, never thrown, so a bad Adam response doesn't crash the cron.
-  async scheduled(_event: unknown, _env: Env, ctx: ExecutionContext): Promise<void> {
+  // Two independent schedules share this one handler (see wrangler's
+  // `triggers.crons` in vite.config.ts) — `event.cron` tells them apart.
+  // Both the Adam sync and the resume-mailbox ingest also have their own
+  // manual HTTP trigger (/api/adam/sync, /api/resume-mailbox/sync) for
+  // on-demand runs. Errors are logged, never thrown, so a bad upstream
+  // response never crashes the cron.
+  async scheduled(event: { cron?: string }, _env: Env, ctx: ExecutionContext): Promise<void> {
+    const isResumeMailboxCron = event?.cron === RESUME_MAILBOX_CRON;
+
     ctx.waitUntil(
       (async () => {
+        if (isResumeMailboxCron) {
+          try {
+            const result = await ingestResumeMailbox();
+            console.log("Scheduled resume-mailbox ingest complete:", result);
+          } catch (error) {
+            console.error("Scheduled resume-mailbox ingest failed:", error instanceof Error ? error.message : error);
+          }
+          return;
+        }
+
         try {
           const jobs = await fetchAdamJobs();
           const result = await replaceAdamJobs(jobs);

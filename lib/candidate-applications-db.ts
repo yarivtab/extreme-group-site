@@ -30,6 +30,7 @@ const createCandidateApplicationsSql = `CREATE TABLE IF NOT EXISTS candidate_app
   status TEXT NOT NULL DEFAULT 'received_pending_adam_sync',
   notification_email_status TEXT NOT NULL DEFAULT 'not_configured',
   source TEXT NOT NULL DEFAULT 'career-intake',
+  source_message_id TEXT,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL
 )`;
@@ -37,8 +38,30 @@ const createCandidateApplicationsSql = `CREATE TABLE IF NOT EXISTS candidate_app
 const createStatusIndexSql =
   "CREATE INDEX IF NOT EXISTS candidate_applications_status_idx ON candidate_applications(status, created_at)";
 
+// Dedup key for mailbox-ingested applications (Microsoft Graph's
+// internetMessageId) — lets the resume-mailbox ingester skip a message it
+// already saved, even if marking it "read" on the Graph side ever fails
+// after a successful D1/R2 write.
+const createSourceMessageIndexSql =
+  "CREATE UNIQUE INDEX IF NOT EXISTS candidate_applications_source_message_idx ON candidate_applications(source_message_id) WHERE source_message_id IS NOT NULL";
+
+// `source_message_id` was added after the table already existed in
+// production, so existing databases need an ALTER — D1/SQLite has no
+// "ADD COLUMN IF NOT EXISTS", so this just swallows the one expected error
+// (column already exists) on every subsequent boot.
+async function ensureSourceMessageIdColumn() {
+  try {
+    await env.DB.prepare("ALTER TABLE candidate_applications ADD COLUMN source_message_id TEXT").run();
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (!/duplicate column name/i.test(message)) throw error;
+  }
+}
+
 export async function ensureCandidateApplicationsSchema() {
-  await env.DB.batch([env.DB.prepare(createCandidateApplicationsSql), env.DB.prepare(createStatusIndexSql)]);
+  await env.DB.prepare(createCandidateApplicationsSql).run();
+  await ensureSourceMessageIdColumn();
+  await env.DB.batch([env.DB.prepare(createStatusIndexSql), env.DB.prepare(createSourceMessageIndexSql)]);
 }
 
 export type NewCandidateApplication = {
@@ -53,6 +76,10 @@ export type NewCandidateApplication = {
   parsedFields?: ParsedResumeFields;
   confirmedFields?: Record<string, unknown>;
   consentGiven: boolean;
+  /** e.g. "career-intake" (default) or "resume-mailbox". */
+  source?: string;
+  /** Microsoft Graph internetMessageId, for mailbox-sourced applications only. */
+  sourceMessageId?: string | null;
 };
 
 function newId() {
@@ -67,8 +94,8 @@ export async function createCandidateApplication(input: NewCandidateApplication)
   await env.DB.prepare(`INSERT INTO candidate_applications (
     id, job_id, job_slug, email, resume_r2_key, resume_filename, resume_content_type,
     resume_size_bytes, parsed_fields_json, confirmed_fields_json,
-    consent_given, status, notification_email_status, source, created_at, updated_at
-  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'received_pending_adam_sync', 'not_configured', 'career-intake', ?, ?)`).bind(
+    consent_given, status, notification_email_status, source, source_message_id, created_at, updated_at
+  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'received_pending_adam_sync', 'not_configured', ?, ?, ?, ?)`).bind(
     id,
     input.jobId ?? null,
     input.jobSlug ?? null,
@@ -80,11 +107,22 @@ export async function createCandidateApplication(input: NewCandidateApplication)
     JSON.stringify(input.parsedFields ?? {}),
     JSON.stringify(input.confirmedFields ?? {}),
     input.consentGiven ? 1 : 0,
+    input.source ?? "career-intake",
+    input.sourceMessageId ?? null,
     now,
     now,
   ).run();
 
   return { id, createdAt: now };
+}
+
+/** True if a mailbox message with this internetMessageId has already been saved — lets the ingester skip re-processing it. */
+export async function candidateApplicationExistsForMessageId(sourceMessageId: string) {
+  await ensureCandidateApplicationsSchema();
+  const row = await env.DB.prepare(
+    "SELECT id FROM candidate_applications WHERE source_message_id = ? LIMIT 1"
+  ).bind(sourceMessageId).first<{ id: string }>();
+  return Boolean(row);
 }
 
 /** Records whether the best-effort notification email to the recruiting inbox went out. */

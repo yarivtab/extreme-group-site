@@ -2,6 +2,7 @@ import vinext from "vinext";
 import { defineConfig } from "vite";
 import hostingConfig from "./.openai/hosting.json";
 import { sites } from "./build/sites-vite-plugin";
+import { ADAM_SYNC_CRON, RESUME_MAILBOX_CRON } from "./lib/cron-schedules";
 
 const SITE_CREATOR_PLACEHOLDER_DATABASE_ID =
   "00000000-0000-4000-8000-000000000000";
@@ -28,6 +29,10 @@ const secretBackedVars = isProductionDeployBuild
       OPENAI_API_KEY: process.env.OPENAI_API_KEY ?? "",
       RESEND_API_KEY: process.env.RESEND_API_KEY ?? "",
       RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL ?? "",
+      RESUME_MAILBOX_SYNC_SECRET: process.env.RESUME_MAILBOX_SYNC_SECRET ?? "",
+      MICROSOFT_GRAPH_TENANT_ID: process.env.MICROSOFT_GRAPH_TENANT_ID ?? "",
+      MICROSOFT_GRAPH_CLIENT_ID: process.env.MICROSOFT_GRAPH_CLIENT_ID ?? "",
+      MICROSOFT_GRAPH_CLIENT_SECRET: process.env.MICROSOFT_GRAPH_CLIENT_SECRET ?? "",
     };
 
 const localBindingConfig = {
@@ -38,6 +43,7 @@ const localBindingConfig = {
     ...secretBackedVars,
     ADAM_API_BASE_URL: process.env.ADAM_API_BASE_URL ?? "https://services.adamtotal.co.il/api/Career",
     JOBS_INBOX_EMAIL: process.env.JOBS_INBOX_EMAIL ?? "jobs@extreme.co.il",
+    MICROSOFT_GRAPH_MAILBOX: process.env.MICROSOFT_GRAPH_MAILBOX ?? "resume@extreme.co.il",
     // Only declared when explicitly set, so its absence falls through to
     // app/seo.ts's `?? previewSiteUrl` default rather than becoming a
     // defined-but-empty string (which `??` would NOT fall back from).
@@ -63,12 +69,11 @@ const localBindingConfig = {
         },
       ]
     : [],
-  // Keeps Adam job listings fresh automatically (worker/index.ts's
-  // `scheduled` handler). Only added for real production deploy builds —
-  // local dev shouldn't repeatedly hit the real Adam API on a schedule.
-  // Every 6 hours, offset from the hour so it doesn't pile up with other
-  // providers' on-the-hour crons.
-  ...(isProductionDeployBuild ? { triggers: { crons: ["15 */6 * * *"] } } : {}),
+  // Keeps Adam job listings fresh and polls the resume mailbox automatically
+  // (worker/index.ts's `scheduled` handler branches on `event.cron`). Only
+  // added for real production deploy builds — local dev shouldn't
+  // repeatedly hit the real Adam API or Graph mailbox on a schedule.
+  ...(isProductionDeployBuild ? { triggers: { crons: [ADAM_SYNC_CRON, RESUME_MAILBOX_CRON] } } : {}),
 };
 
 export default defineConfig(async () => {
