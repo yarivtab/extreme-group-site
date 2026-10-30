@@ -123,7 +123,7 @@ export default function PrivacyPage() {
             <p>לשאלות, בקשות עיון או תיקון, הסרה מדיוור או פנייה אחרת בנושא פרטיות:</p>
             <ul>
               <li>דוא״ל: <a href="mailto:info@extreme.co.il">info@extreme.co.il</a></li>
-              <li>דוא״ל כללי: <a href="mailto:hello@extreme.co.il">hello@extreme.co.il</a></li>
+              <li>דוא״ל כללי: <a href="mailto:info@extreme.co.il">info@extreme.co.il</a></li>
               <li>כתובת למשלוח דואר: אקסטרים גרופ בע״מ, יגיע כפיים 21, פתח תקווה</li>
             </ul>
             <Link className="button primary" href="/intake?track=general">פנייה לחברה <span>←</span></Link>

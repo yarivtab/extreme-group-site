@@ -36,7 +36,7 @@ export function Footer() {
       <div><strong>ארגונים</strong><Link href="/solutions">פתרונות</Link><Link href="/solutions#talent">גיוס טכנולוגי</Link><Link href="/solutions#technology">AI ואוטומציה</Link></div>
       <div><strong>תובנות</strong><Link href="/insights">בלוגים ומאמרים שלנו</Link><Link href="/insights#latest">סקרים ומגמות</Link></div>
       <div><strong>Extreme</strong><Link href="/vision">חזון</Link><Link href="/#coretado">Coretado</Link></div>
-      <div><strong>קשר</strong><Link href="/intake">מרכז הפנייה</Link><a href="mailto:hello@extreme.co.il">hello@extreme.co.il</a></div>
+      <div><strong>קשר</strong><Link href="/intake">מרכז הפנייה</Link><a href="mailto:info@extreme.co.il">info@extreme.co.il</a></div>
     </div>
     <div className="shell footer-legal"><span>© 2026 Extreme Group</span><Link href="/privacy">מדיניות פרטיות</Link><span>תל אביב · ישראל</span></div>
   </footer>;
